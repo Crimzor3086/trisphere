@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion, animate } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 interface Trend {
@@ -14,16 +14,27 @@ interface Trend {
 }
 
 export default function TrendCard({ trend }: { trend: Trend }) {
-  const velocityCount = useMotionValue(0);
-  const opportunityCount = useMotionValue(0);
-
-  const displayVelocity = useTransform(velocityCount, (latest) => `${Math.round(latest)}%`);
-  const displayOpportunity = useTransform(opportunityCount, (latest) => Math.round(latest));
+  const [displayVelocity, setDisplayVelocity] = useState('0%');
+  const [displayOpportunity, setDisplayOpportunity] = useState(0);
 
   useEffect(() => {
-    animate(velocityCount, trend.velocity, { duration: 1, delay: 0.2, ease: 'easeOut' });
-    animate(opportunityCount, trend.opportunity, { duration: 1, delay: 0.3, ease: 'easeOut' });
-  }, [trend.velocity, trend.opportunity, velocityCount, opportunityCount]);
+    const velocityControls = animate(0, trend.velocity, {
+      duration: 1,
+      delay: 0.2,
+      ease: 'easeOut',
+      onUpdate: (v) => setDisplayVelocity(`${Math.round(v)}%`),
+    });
+    const opportunityControls = animate(0, trend.opportunity, {
+      duration: 1,
+      delay: 0.3,
+      ease: 'easeOut',
+      onUpdate: (v) => setDisplayOpportunity(Math.round(v)),
+    });
+    return () => {
+      velocityControls.stop();
+      opportunityControls.stop();
+    };
+  }, [trend.velocity, trend.opportunity]);
 
   return (
     <motion.article
@@ -63,10 +74,10 @@ export default function TrendCard({ trend }: { trend: Trend }) {
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400">
         <span>First seen {trend.firstSeen}</span>
         <Link
-          href={`/trends/east-african-logistics-surge`}
+          href="/trends"
           className="rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400"
         >
-          View Brief
+          Open workspace
         </Link>
       </div>
     </motion.article>

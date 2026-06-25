@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion, animate } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 interface Champion {
@@ -13,12 +13,17 @@ interface Champion {
 }
 
 export default function ChampionCard({ champion }: { champion: Champion }) {
-  const scoreCount = useMotionValue(0);
-  const displayScore = useTransform(scoreCount, (latest) => Math.round(latest));
+  const [displayScore, setDisplayScore] = useState(0);
 
   useEffect(() => {
-    animate(scoreCount, champion.score, { duration: 1, delay: 0.1, ease: 'easeOut' });
-  }, [champion.score, scoreCount]);
+    const controls = animate(0, champion.score, {
+      duration: 1,
+      delay: 0.1,
+      ease: 'easeOut',
+      onUpdate: (value) => setDisplayScore(Math.round(value)),
+    });
+    return () => controls.stop();
+  }, [champion.score]);
 
   return (
     <motion.article

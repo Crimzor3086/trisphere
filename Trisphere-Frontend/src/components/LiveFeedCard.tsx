@@ -1,8 +1,7 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect } from 'react';
-import Link from 'next/link';
+import { motion, animate } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 interface LiveFeedItem {
   title: string;
@@ -14,31 +13,48 @@ interface LiveFeedItem {
 }
 
 export default function LiveFeedCard({ item }: { item: LiveFeedItem }) {
-  const velocityCount = useMotionValue(0);
-  const confidenceCount = useMotionValue(0);
-  const championCount = useMotionValue(0);
-  const matchCount = useMotionValue(0);
-
-  const displayVelocity = useTransform(velocityCount, (latest) => `${Math.round(latest)}%`);
-  const displayConfidence = useTransform(confidenceCount, (latest) => `${Math.round(latest)}%`);
-  const displayChampion = useTransform(championCount, (latest) => Math.round(latest));
-  const displayMatch = useTransform(matchCount, (latest) => `${Math.round(latest)}%`);
+  const [displayVelocity, setDisplayVelocity] = useState('0%');
+  const [displayConfidence, setDisplayConfidence] = useState('0%');
+  const [displayChampion, setDisplayChampion] = useState(0);
+  const [displayMatch, setDisplayMatch] = useState('0%');
 
   useEffect(() => {
+    const stops: Array<() => void> = [];
     if (item.velocity) {
       const num = parseInt(item.velocity);
-      animate(velocityCount, num, { duration: 1.2, ease: 'easeOut' });
+      const controls = animate(0, num, {
+        duration: 1.2,
+        ease: 'easeOut',
+        onUpdate: (v) => setDisplayVelocity(`${Math.round(v)}%`),
+      });
+      stops.push(() => controls.stop());
     }
     if (item.confidence) {
-      animate(confidenceCount, item.confidence, { duration: 1.2, ease: 'easeOut' });
+      const controls = animate(0, item.confidence, {
+        duration: 1.2,
+        ease: 'easeOut',
+        onUpdate: (v) => setDisplayConfidence(`${Math.round(v)}%`),
+      });
+      stops.push(() => controls.stop());
     }
     if (item.championScore) {
-      animate(championCount, item.championScore, { duration: 1.2, ease: 'easeOut' });
+      const controls = animate(0, item.championScore, {
+        duration: 1.2,
+        ease: 'easeOut',
+        onUpdate: (v) => setDisplayChampion(Math.round(v)),
+      });
+      stops.push(() => controls.stop());
     }
     if (item.matchStrength) {
-      animate(matchCount, item.matchStrength, { duration: 1.2, ease: 'easeOut' });
+      const controls = animate(0, item.matchStrength, {
+        duration: 1.2,
+        ease: 'easeOut',
+        onUpdate: (v) => setDisplayMatch(`${Math.round(v)}%`),
+      });
+      stops.push(() => controls.stop());
     }
-  }, [item, velocityCount, confidenceCount, championCount, matchCount]);
+    return () => stops.forEach((stop) => stop());
+  }, [item]);
 
   return (
     <motion.article
@@ -46,7 +62,7 @@ export default function LiveFeedCard({ item }: { item: LiveFeedItem }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.02 }}
-      className="rounded-3xl border border-slate-800/80 bg-slate-950/85 p-6 shadow-xl shadow-slate-950/20 backdrop-blur-xl relative overflow-hidden"
+      className="relative overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/85 p-6 shadow-xl shadow-slate-950/20 backdrop-blur-xl"
     >
       <motion.div
         initial={{ opacity: 0 }}
@@ -56,24 +72,32 @@ export default function LiveFeedCard({ item }: { item: LiveFeedItem }) {
       />
       <div className="relative flex items-center justify-between gap-4">
         <p className="text-xs uppercase tracking-[0.35em] text-sky-300/80">{item.type}</p>
-        <div className="rounded-full bg-slate-900/80 px-3 py-1 text-xs text-slate-400 flex items-center gap-1.5">
-          <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+        <div className="flex items-center gap-1.5 rounded-full bg-slate-900/80 px-3 py-1 text-xs text-slate-400">
+          <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
           Live
         </div>
       </div>
       <h3 className="relative mt-6 text-xl font-semibold text-white">{item.title}</h3>
       <div className="relative mt-5 space-y-3 text-slate-300">
         {item.velocity ? (
-          <p>Velocity: <span className="font-semibold text-white">{displayVelocity}</span></p>
+          <p>
+            Velocity: <span className="font-semibold text-white">{displayVelocity}</span>
+          </p>
         ) : null}
         {item.confidence ? (
-          <p>Confidence: <span className="font-semibold text-white">{displayConfidence}</span></p>
+          <p>
+            Confidence: <span className="font-semibold text-white">{displayConfidence}</span>
+          </p>
         ) : null}
         {item.championScore ? (
-          <p>Champion Score: <span className="font-semibold text-white">{displayChampion}</span></p>
+          <p>
+            Champion Score: <span className="font-semibold text-white">{displayChampion}</span>
+          </p>
         ) : null}
         {item.matchStrength ? (
-          <p>Match Strength: <span className="font-semibold text-white">{displayMatch}</span></p>
+          <p>
+            Match Strength: <span className="font-semibold text-white">{displayMatch}</span>
+          </p>
         ) : null}
       </div>
     </motion.article>

@@ -1,14 +1,14 @@
 import Link from 'next/link';
 
 const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Trends', href: '/trends' },
-  { label: 'Champions', href: '/champions' },
-  { label: 'Matches', href: '/matches' },
-  { label: 'Insights', href: '/insights' },
-  { label: 'Copilot', href: '/copilot' },
-  { label: 'Rewards', href: '/rewards' },
-  { label: 'Profile', href: '/profile' },
+  { label: 'Home', href: '/' as const },
+  { label: 'Trends', href: '/trends' as const },
+  { label: 'Champions', href: '/champions' as const },
+  { label: 'Matches', href: '/matches' as const },
+  { label: 'Insights', href: '/insights' as const },
+  { label: 'Copilot', href: '/copilot' as const },
+  { label: 'Rewards', href: '/rewards' as const },
+  { label: 'Profile', href: '/profile' as const },
 ];
 
 export default function Navbar() {

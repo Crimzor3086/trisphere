@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion, animate } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 interface Match {
   participants: string;
@@ -11,12 +11,17 @@ interface Match {
 }
 
 export default function MatchCard({ match }: { match: Match }) {
-  const alignmentCount = useMotionValue(0);
-  const displayAlignment = useTransform(alignmentCount, (latest) => Math.round(latest));
+  const [displayAlignment, setDisplayAlignment] = useState(0);
 
   useEffect(() => {
-    animate(alignmentCount, match.alignment, { duration: 1, delay: 0.1, ease: 'easeOut' });
-  }, [match.alignment, alignmentCount]);
+    const controls = animate(0, match.alignment, {
+      duration: 1,
+      delay: 0.1,
+      ease: 'easeOut',
+      onUpdate: (v) => setDisplayAlignment(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [match.alignment]);
 
   return (
     <motion.article
@@ -39,8 +44,12 @@ export default function MatchCard({ match }: { match: Match }) {
         ))}
       </div>
       <div className="mt-6 flex flex-wrap gap-3">
-        <button className="rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400">Request Intro</button>
-        <button className="rounded-full border border-slate-800/80 px-4 py-2 text-sm text-slate-200 transition hover:border-sky-400">Save Match</button>
+        <button className="rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400">
+          Request Intro
+        </button>
+        <button className="rounded-full border border-slate-800/80 px-4 py-2 text-sm text-slate-200 transition hover:border-sky-400">
+          Save Match
+        </button>
       </div>
     </motion.article>
   );

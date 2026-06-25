@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { animate } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 interface CounterProps {
@@ -9,15 +9,17 @@ interface CounterProps {
 }
 
 export default function Counter({ value, suffix = '' }: CounterProps) {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) => Math.round(latest));
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = rounded.onChange((v) => setDisplayValue(v));
-    animate(count, value, { duration: 1.5, delay: 0.3, ease: 'easeOut' });
-    return () => unsubscribe();
-  }, [value, count, rounded]);
+    const controls = animate(0, value, {
+      duration: 1.5,
+      delay: 0.3,
+      ease: 'easeOut',
+      onUpdate: (v) => setDisplayValue(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [value]);
 
   return (
     <span>
