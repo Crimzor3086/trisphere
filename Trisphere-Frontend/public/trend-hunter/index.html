@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trend Hunter — AI Trend-to-Script Engine</title>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Toast Notifications Wrapper -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <a href="#" class="brand" onclick="navigate('dashboard')">
+          <div class="brand-logo">TH</div>
+          <span class="brand-title">Trend Hunter</span>
+        </a>
+        
+        <ul class="nav-menu">
+          <li class="nav-item active" id="nav-dashboard">
+            <a onclick="navigate('dashboard')">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item" id="nav-livetrends">
+            <a onclick="navigate('livetrends')">
+              <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Live Trends
+            </a>
+          </li>
+          <li class="nav-item" id="nav-contentbriefs">
+            <a onclick="navigate('contentbriefs')">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+              Content Briefs
+            </a>
+          </li>
+          <li class="nav-item" id="nav-registry">
+            <a onclick="navigate('registry')">
+              <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+              Avalanche Registry
+            </a>
+          </li>
+          <li class="nav-item" id="nav-settings">
+            <a onclick="navigate('settings')">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 008 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+              Settings
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="sidebar-bottom">
+        <!-- Web3 Wallet Panel -->
+        <div class="wallet-card">
+          <div class="wallet-status-row">
+            <span class="wallet-status-label">
+              <span class="wallet-status-dot" id="walletDot"></span>
+              <span id="walletStatusText">Disconnected</span>
+            </span>
+            <span class="network-badge">Fuji Testnet</span>
+          </div>
+          <div class="wallet-address" id="walletAddressText">—</div>
+          <button class="wallet-btn" id="connectWalletBtn" onclick="connectWallet()">
+            <svg style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 013.5-1.5M20 12v4H6a2 2 0 003.5 1.5M20 12H8m12 0H4a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2v-4a2 2 0 012-2h16"/></svg>
+            <span>Connect Core</span>
+          </button>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- PAGE 1: DASHBOARD -->
+      <div id="page-dashboard" class="tab-page active">
+        <div class="page-header">
+          <div class="page-title-pre">Personalized priority engine</div>
+          <h2 class="page-title" id="dashboardGreeting">Good evening — here are your priority trends</h2>
+          <p class="page-description">Handpicked social anomalies breaking out in Kenya, optimized for local entrepreneurship creators.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Section A: Priority Trend Feed -->
+          <div class="priority-feed-container">
+            <h3 style="font-family:'Outfit', sans-serif; font-size:1.1rem; margin-bottom:14px; display:flex; align-items:center; gap:8px">
+              <svg style="width:18px;height:18px;color:var(--accent)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              High Relevance Priority Feed
+            </h3>
+            <div class="priority-feed" id="priorityFeed">
+              <!-- Instantiated by JS -->
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div style="display:flex; flex-direction:column; gap:24px">
+            <!-- Section C: Alerts Panel -->
+            <div class="panel">
+              <div class="panel-header">
+                <div class="panel-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+                  Real-Time Pulse Alerts
+                </div>
+                <span class="badge" style="background:rgba(16, 185, 129, 0.1); color:var(--success)">System OK</span>
+              </div>
+              <div class="alerts-list">
+                <div class="alert-item">
+                  <div class="alert-indicator pulse"></div>
+                  <div class="alert-details">
+                    <span class="alert-text">New trend detected: M-Pesa API cost updates</span>
+                    <span class="alert-time">5 mins ago · Entrepreneurship</span>
+                  </div>
+                </div>
+                <div class="alert-item">
+                  <div class="alert-indicator pulse warning"></div>
+                  <div class="alert-details">
+                    <span class="alert-text">Trend entering peak phase: AI agent replacing interns</span>
+                    <span class="alert-time">1 hour ago · Founder Culture</span>
+                  </div>
+                </div>
+                <div class="alert-item">
+                  <div class="alert-indicator pulse accent"></div>
+                  <div class="alert-details">
+                    <span class="alert-text">High relevance to Kenyan founders detected: SME WhatsApp Selling</span>
+                    <span class="alert-time">4 hours ago · Business</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mini stats card -->
+            <div class="panel" style="background: linear-gradient(135deg, #111629 0%, #080a14 100%)">
+              <div style="font-size:0.8rem; text-transform:uppercase; color:var(--text-muted); font-weight:700">Quick Stats</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px">
+                <div>
+                  <div style="font-size:1.8rem; font-family:'Outfit',sans-serif; font-weight:800; color:var(--accent)">4</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted)">Monitored Channels</div>
+                </div>
+                <div>
+                  <div style="font-size:1.8rem; font-family:'Outfit',sans-serif; font-weight:800; color:var(--accent-purple)">99%</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted)">Signal Reliability</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section B: Trending Now Strip -->
+        <div class="trending-now-container" style="margin-top:40px">
+          <h3 style="font-family:'Outfit', sans-serif; font-size:1.1rem; display:flex; align-items:center; gap:8px">
+            <svg style="width:18px;height:18px;color:var(--accent-purple)" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"/></svg>
+            Trending Now Strip
+          </h3>
+          <div class="trending-strip-scroll" id="trendingStrip">
+            <!-- Instantiated by JS -->
+          </div>
+        </div>
+      </div>
+
+
+      <!-- PAGE 2: LIVE TRENDS -->
+      <div id="page-livetrends" class="tab-page">
+        <div class="page-header">
+          <div class="page-title-pre">Real-time signal feed</div>
+          <h2 class="page-title">Live Trend Discovery</h2>
+          <p class="page-description">Filter and explore rising digital anomalies across multiple platforms with high relevance scoring.</p>
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="loadBackendTrends({ refreshLive: true })">Refresh Live Sources</button>
+            <button class="btn btn-secondary" onclick="loadBackendTrends()">Sync Backend Cache</button>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-bar">
+          <div class="filter-group">
+            <label class="filter-label" for="filterCategory">Category</label>
+            <select class="filter-select" id="filterCategory" onchange="applyFilters()">
+              <option value="all">All Categories</option>
+              <option value="Founder Culture">Founder Culture</option>
+              <option value="Business">Business</option>
+              <option value="Money">Money</option>
+              <option value="Entrepreneurship">Entrepreneurship</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label" for="filterPlatform">Platform</label>
+            <select class="filter-select" id="filterPlatform" onchange="applyFilters()">
+              <option value="all">All Platforms</option>
+              <option value="x">X (Twitter)</option>
+              <option value="tiktok">TikTok</option>
+              <option value="reddit">Reddit</option>
+              <option value="news">News</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label" for="filterStage">Trend Stage</label>
+            <select class="filter-select" id="filterStage" onchange="applyFilters()">
+              <option value="all">All Stages</option>
+              <option value="Emerging">Emerging</option>
+              <option value="Growing">Growing</option>
+              <option value="Peak">Peak</option>
+              <option value="Declining">Declining</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Trend Grid -->
+        <div class="trends-grid" id="trendsGrid">
+          <!-- Instantiated by JS -->
+        </div>
+      </div>
+
+
+      <!-- PAGE 3: TREND DETAIL PAGE -->
+      <div id="page-detail" class="tab-page">
+        <div class="page-header">
+          <button class="btn btn-secondary" onclick="navigate('livetrends')" style="padding:6px 12px; font-size:0.8rem; margin-bottom:12px">
+            ← Back to Live Trends
+          </button>
+          <div class="page-title-pre" id="detailCategoryPre">Founder Culture</div>
+          <h2 class="page-title" id="detailTitle">Everyone is arguing about AI replacing interns.</h2>
+          <p class="page-description" id="detailSummaryText">A Nairobi founder posted a workflow showing an AI agent replacing repetitive intern tasks, triggering viral conversations.</p>
+        </div>
+
+        <div class="detail-grid">
+          <!-- Left Column: What is happening & metadata -->
+          <div class="detail-left">
+            <div class="panel">
+              <div class="panel-header">
+                <div class="panel-title">What is happening</div>
+              </div>
+              <div class="detail-value" id="detailHappeningText" style="color:var(--text-muted)">
+                A startup founder posted a workflow showing an AI agent replacing repetitive intern tasks. The clip gained 300k views in 8 hours and triggered debate around entry-level jobs.
+              </div>
+              <div style="display:flex; flex-direction:column; gap:12px; border-top:1px solid var(--border); padding-top:16px; margin-top:8px">
+                <div class="detail-info-block">
+                  <span class="detail-label">First Seen</span>
+                  <div class="detail-value" id="detailFirstSeen">10 hours ago</div>
+                </div>
+                <div class="detail-info-block">
+                  <span class="detail-label">Trend Stage</span>
+                  <div class="detail-value" id="detailStage">Growing</div>
+                </div>
+                <div class="detail-info-block">
+                  <span class="detail-label">Platforms Involved</span>
+                  <div id="detailPlatforms" style="display:flex; gap:8px; margin-top:4px">
+                    <!-- Platforms icons inserted by JS -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Column: Media Carousel -->
+          <div class="detail-center">
+            <div class="panel">
+              <div class="panel-header">
+                <div class="panel-title">Interactive Media Evidence</div>
+              </div>
+              <div class="carousel-container">
+                <div class="carousel-slides" id="carouselSlides">
+                  <!-- Carousel slides populated by JS -->
+                </div>
+                <div class="carousel-controls">
+                  <button class="btn btn-secondary" onclick="prevCarouselSlide()" style="padding:4px 8px; font-size:0.75rem">Prev</button>
+                  <div class="carousel-dots" id="carouselDots">
+                    <!-- Dots generated by JS -->
+                  </div>
+                  <button class="btn btn-secondary" onclick="nextCarouselSlide()" style="padding:4px 8px; font-size:0.75rem">Next</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: AI Explanation & relevance -->
+          <div class="detail-right">
+            <div class="panel">
+              <div class="panel-header">
+                <div class="panel-title">AI Engine Analysis</div>
+              </div>
+              <div class="detail-info-block">
+                <span class="detail-label">Why it is trending</span>
+                <div class="detail-value" id="detailWhyTrending" style="color:var(--text-muted)">The rising accessibility of low-code AI agents matches local youth unemployment anxiety.</div>
+              </div>
+              <div class="detail-info-block">
+                <span class="detail-label">Emotional Trigger</span>
+                <div class="detail-value" id="detailEmotionalTrigger" style="color:var(--text-muted)">Fear of displacement, excitement for automation.</div>
+              </div>
+              <div class="detail-info-block">
+                <span class="detail-label">Social Trigger</span>
+                <div class="detail-value" id="detailSocialTrigger" style="color:var(--text-muted)">Status signaling, career anxiety debates.</div>
+              </div>
+              <div class="detail-info-block">
+                <span class="detail-label">Kenyan Relevance Score</span>
+                <div style="display:flex; align-items:center; gap:12px; margin-top:4px">
+                  <div style="font-size:2rem; font-family:'Outfit',sans-serif; font-weight:800; color:var(--accent)" id="detailRelevanceNum">94%</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted)">Nairobi Tech density multiplier applied.</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="detail-actions-row">
+              <button class="btn btn-primary" id="detailBtnGenerate" onclick="triggerGenerateBriefFromDetail()">Generate Content Brief</button>
+              <button class="btn btn-secondary" id="detailBtnRegister" onclick="triggerRegisterFromDetail()">Register on Avalanche</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- PAGE 4: CONTENT BRIEF PAGE -->
+      <div id="page-contentbriefs" class="tab-page">
+        <div class="page-header">
+          <div class="page-title-pre">Publish-Ready Output</div>
+          <h2 class="page-title">Content Brief Generator</h2>
+          <p class="page-description">Optimized hooks, scripts, and angles ready to shoot in under 2 minutes.</p>
+        </div>
+
+        <div class="brief-container">
+          <!-- Section 1: Trend Summary -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+                Section 1: Trend Snapshot
+              </div>
+              <span class="badge" id="briefCategoryBadge">Founder Culture</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:20px">
+              <div>
+                <span class="detail-label">What is happening</span>
+                <div class="detail-value" id="briefHappeningText">Founder automates data scraping and intern roles.</div>
+              </div>
+              <div>
+                <span class="detail-label">Why it is spreading</span>
+                <div class="detail-value" id="briefWhySpreading">Triggering employment debate on Kenyan Tech-Twitter.</div>
+              </div>
+              <div>
+                <span class="detail-label">Estimated Lifespan</span>
+                <div class="detail-value" id="briefLifespanText">3-5 days</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Kuzana Angle -->
+          <div class="brief-card-highlight">
+            <div class="brief-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-5.657a5 5 0 013.536 0"/></svg>
+              Section 2: The <span class="kuzana-title">Kuzana Angle</span> (Local Kenyan Founder Lens)
+            </div>
+            <p id="briefKuzanaText" style="line-height:1.6; font-size:0.95rem; font-weight:500">
+              Don't hire interns to do boring copy-paste work that AI can do in seconds. Hire them to talk to your customers. If your startup is using interns as manual databases, you are failing them and your business. Automate the boring, humanize the rest.
+            </p>
+          </div>
+
+          <!-- Section 3: Hooks -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.371 1.24.588 1.81l-3.97 2.883a1 1 0 00-.364 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.971-2.883a1 1 0 00-1.17 0l-3.97 2.883c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118L2.98 10.1c-.783-.57-.38-1.81.588-1.81h4.906a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                Section 3: Viral Hooks (Kenyan SMB/Founder Context)
+              </div>
+              <span class="badge" style="background:rgba(232, 65, 66, 0.1); color:var(--accent)">Copy Ready</span>
+            </div>
+            <div class="hooks-list" id="briefHooksList">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Section 4: Script Generator -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l5.553-2.776A1 1 0 0122 8.118v7.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                Section 4: 30-60s Ready-to-Shoot Video Script
+              </div>
+              <div style="display:flex; gap:8px">
+                <button class="btn btn-secondary" onclick="regenerateScript()" style="padding:6px 12px; font-size:0.8rem; display:flex; align-items:center; gap:6px">
+                  <span id="regenSpinner" class="spinner-loader" style="display:none"></span>
+                  <svg id="regenIcon" style="width:14px;height:14px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H17"/></svg>
+                  <span id="regenText">Regenerate</span>
+                </button>
+                <button class="btn btn-primary" onclick="copyEntireScript()" style="padding:6px 12px; font-size:0.8rem">Copy Entire Script</button>
+              </div>
+            </div>
+            <div class="script-box-container">
+              <div class="script-box-header">
+                <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600">Video Format: Portrait TikTok/Reels/Shorts</span>
+                <span class="badge" style="background:rgba(16, 185, 129, 0.1); color:var(--success)">High-Convert Script</span>
+              </div>
+              <div class="script-box-body" id="briefScriptBody">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Remix Template -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5a1 1 0 01.3-2.9L7.3 5H13a3 3 0 013 3v10m-4 4h7a1 1 0 00.9-.3l2.8-2.9m-11 3v-5a3 3 0 00-3-3H3"/></svg>
+                Section 5: Remix Template
+              </div>
+            </div>
+            <div class="remix-flow" id="briefRemixFlow">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- PAGE 5: AVALANCHE REGISTRY -->
+      <div id="page-registry" class="tab-page">
+        <div class="page-header">
+          <div class="page-title-pre">Verifiable On-Chain Layer</div>
+          <h2 class="page-title">Avalanche Fuji Registry</h2>
+          <p class="page-description">Register verified trend signals and AI brief hashes on the Avalanche C-Chain to establish timestamp proof of first discovery.</p>
+        </div>
+
+        <div class="registry-settings">
+          <!-- Contract address input -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Smart Contract Interaction</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="registryContractAddress">Deployed TrendRegistry Address</label>
+              <div class="form-input-container">
+                <input class="form-input" id="registryContractAddress" type="text" value="" placeholder="0x..." />
+                <button class="btn btn-secondary" onclick="verifyContractConnection()" style="padding:0 16px">Verify</button>
+              </div>
+              <span style="font-size:0.75rem; color:var(--text-muted)">
+                Compile & deploy contracts: <code>npm run deploy:fuji</code>. Paste address to enable on-chain writes.
+              </span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:16px">
+              <div>
+                <span class="detail-label" style="margin-bottom:2px">First-Seen Claims</span>
+                <span style="font-size:1.15rem; font-family:'Outfit',sans-serif; font-weight:800; color:var(--success)" id="registryTotalClaims">0</span>
+              </div>
+              <button class="btn btn-primary" id="btnRegisterActive" onclick="registerActiveTrendOnChain()" disabled>
+                Register with Wallet
+              </button>
+              <button class="btn btn-secondary" onclick="registerActiveTrendViaBackend()" style="padding:10px 14px">
+                Register via Backend
+              </button>
+            </div>
+          </div>
+
+          <!-- Logs window -->
+          <div class="panel">
+            <div class="console-box">
+              <div class="console-header">
+                <span>Avalanche Dev Logs</span>
+                <span style="color:var(--text-muted); cursor:pointer" onclick="clearLogs()">Clear</span>
+              </div>
+              <div class="console-logs" id="consoleLogs">
+                [SYSTEM] Ready. Connect Core Wallet, paste the deployed contract, or use backend registration.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table View -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">On-Chain Registry Log Table</div>
+            <span class="badge" style="background:rgba(232, 65, 66, 0.1); color:var(--accent)">Avalanche C-Chain Verified</span>
+          </div>
+          <div class="table-container">
+            <table class="registry-table">
+              <thead>
+                <tr>
+                  <th>Trend ID</th>
+                  <th>Trend Title</th>
+                  <th>Category</th>
+                  <th>Score</th>
+                  <th>Fuji Tx Hash</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="registryTableBody">
+                <!-- Data populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- PAGE 6: SETTINGS -->
+      <div id="page-settings" class="tab-page">
+        <div class="page-header">
+          <div class="page-title-pre">System adjustments</div>
+          <h2 class="page-title">Settings</h2>
+          <p class="page-description">Adjust Web3 RPC providers, developer options, and customize generation filters.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Developer Config</div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Avalanche RPC Endpoint</label>
+              <input class="form-input" value="https://api.avax-test.network/ext/bc/C/rpc" readonly />
+            </div>
+
+            <div class="form-group" style="margin-top:10px">
+              <label class="form-label">Smart Contract ABI (Subset)</label>
+              <textarea class="form-input" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; height:100px; resize:none" readonly>
+function registerTrend(string title, string category, uint256 score, string contentHash) external returns (uint256)
+              </textarea>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">System Information</div>
+            </div>
+            <div class="detail-info-block">
+              <span class="detail-label">App Mode</span>
+              <div class="detail-value" style="color:var(--success)">Production Ready (Front-End MVP)</div>
+            </div>
+            <div class="detail-info-block">
+              <span class="detail-label">Avalanche Fuji Network ID</span>
+              <div class="detail-value">43113</div>
+            </div>
+            <div class="detail-info-block">
+              <span class="detail-label">Contributor Node Reputation</span>
+              <div class="detail-value" id="settingsReputation">0 points</div>
+            </div>
+            <div style="border-top:1px solid var(--border); padding-top:16px">
+              <button class="btn btn-secondary" onclick="resetAppDatabase()" style="width:100%; border-color:rgba(239, 68, 68, 0.4); color:#ef4444">
+                Reset Local Storage Database
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Global Floating AI Assistant -->
+    <div class="ai-assistant-wrapper">
+      <!-- Chat Pane -->
+      <div class="ai-chat-window" id="aiChatWindow">
+        <div class="ai-chat-header">
+          <div class="ai-chat-header-title">
+            <span></span>
+            Trend Hunter AI Assistant
+          </div>
+          <button class="ai-chat-close" onclick="toggleChatWindow()">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        
+        <!-- Messages -->
+        <div class="ai-chat-messages" id="chatMessages">
+          <div class="chat-msg assistant">
+            Hi! I am the Trend Hunter AI Assistant. Ask me anything about the active trend, rewrite scripts, or adjust hooks for Kenyan founders.
+          </div>
+        </div>
+
+        <!-- Presets -->
+        <div class="ai-chat-presets">
+          <span class="ai-chat-presets-label">Prompt Presets (Context Aware)</span>
+          <div class="ai-chat-presets-grid">
+            <button class="preset-btn" onclick="triggerPreset('Why is this trending?')">Why trending?</button>
+            <button class="preset-btn" onclick="triggerPreset('Generate better hook')">Better hook</button>
+            <button class="preset-btn" onclick="triggerPreset('Shorten script')">Shorten script</button>
+            <button class="preset-btn" onclick="triggerPreset('Make it more Kenyan relevant')">Nairobi Slang Remix</button>
+            <button class="preset-btn" onclick="triggerPreset('Turn script into Twitter thread')">X Thread format</button>
+          </div>
+        </div>
+
+        <!-- Inputs -->
+        <div class="ai-chat-input-row">
+          <input class="ai-chat-input" id="chatInput" placeholder="Ask AI anything..." onkeydown="if(event.key==='Enter') sendChatMessage()" />
+          <button class="ai-chat-send" onclick="sendChatMessage()">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Floating Button -->
+      <button class="ai-btn-floating" onclick="toggleChatWindow()">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Ethers v6 Library -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+
+  <script src="js/state.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/trends.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/registry.js"></script>
+  <script src="js/assistant.js"></script>
+  <script src="js/init.js"></script>
+</body>
+</html>

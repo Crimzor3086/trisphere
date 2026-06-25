@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     app_name: str = "Trend Hunter API"
     api_host: str = "0.0.0.0"
     api_port: int = 8000
-    frontend_url: str = "http://localhost:8080"
+    frontend_url: str = "http://localhost:3000"
 
     openai_api_key: str | None = None
     openai_model: str = "gpt-5.5"
@@ -48,7 +48,7 @@ class Settings(BaseSettings):
     deployment_file: str = str(DEFAULT_DEPLOYMENT_FILE)
     tx_confirmation_timeout: int = 120
 
-    cors_origins: str = "http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173,http://127.0.0.1:5173"
+    cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000,http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173,http://127.0.0.1:5173"
     cors_allow_local_network: bool = True
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
