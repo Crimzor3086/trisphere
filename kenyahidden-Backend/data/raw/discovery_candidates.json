@@ -1,0 +1,102 @@
+[
+  {
+    "company_name": "Njoro Canning Factory",
+    "sector": "Agro-processing",
+    "county": "Nakuru",
+    "city": "Njoro",
+    "website": "https://njorocanning.com/",
+    "source": "Google Maps search - agro processor Kenya",
+    "confidence_score": 90,
+    "discovery_notes": "FSSC 22000 certified, founded 1978, 500+ employees, 100+ distributors, exports to 15+ countries, contracts with UN and British Army"
+  },
+  {
+    "company_name": "Broadways Bread",
+    "sector": "Food Manufacturing",
+    "county": "Kiambu",
+    "city": "Thika",
+    "website": "https://www.tuko.co.ke/business-economy/561135-list-top-bread-companies-kenya-owners-business-locations/",
+    "source": "News archives - bread companies Kenya",
+    "confidence_score": 85,
+    "discovery_notes": "Founded 1958 (67+ years), family-owned, established before independence, multiple brands (Broadways, New Seneta), distribution center in Eldoret"
+  },
+  {
+    "company_name": "Mini-Bakeries Limited (Supa Loaf)",
+    "sector": "Food Manufacturing",
+    "county": "Mombasa",
+    "city": "Port Reitz",
+    "website": "https://www.tuko.co.ke/business-economy/561135-list-top-bread-companies-kenya-owners-business-locations/",
+    "source": "News archives - bread companies Kenya",
+    "confidence_score": 85,
+    "discovery_notes": "Founded 1970 (55+ years), family-owned multi-billion shilling business, started as home-based bakery, expanded operations across Kenya"
+  },
+  {
+    "company_name": "Cold Solutions Kenya",
+    "sector": "Cold Chain Logistics",
+    "county": "Kiambu",
+    "city": "Tatu City",
+    "website": "https://www.coldsolutionskenya.com/",
+    "source": "Google Maps search - cold chain logistics Kenya",
+    "confidence_score": 75,
+    "discovery_notes": "Temperature-controlled warehouse and logistics, strong international presence, serves pharmaceutical and food industries. Check ecosystem visibility."
+  },
+  {
+    "company_name": "Paperbags Limited",
+    "sector": "Packaging",
+    "county": "Nairobi",
+    "city": "Industrial Area",
+    "website": "https://www.businesslist.co.ke/company/paperbags-limited/374226",
+    "source": "Business directory - packaging companies Kenya",
+    "confidence_score": 80,
+    "discovery_notes": "Founded 1967 (58+ years), ISO certified for food safety, quality paper packaging solutions"
+  },
+  {
+    "company_name": "SKL (Shri Krishana Overseas PLC)",
+    "sector": "Packaging",
+    "county": "Nairobi",
+    "city": "Imara Daima",
+    "website": "https://skl.co.ke/",
+    "source": "Google search - packaging manufacturer Kenya",
+    "confidence_score": 70,
+    "discovery_notes": "Leading corrugated box manufacturer, established presence, premium SFK paper and Kraft paper solutions"
+  },
+  {
+    "company_name": "Devki Group",
+    "sector": "Manufacturing",
+    "county": "Kiambu",
+    "city": "Ruiru",
+    "website": "https://devkigroupke.com/",
+    "source": "News archives - manufacturing companies Kenya",
+    "confidence_score": 85,
+    "discovery_notes": "Diversified manufacturing: steel, cement, minerals, fertilizers, packaging. Established industrial presence, major employer"
+  },
+  {
+    "company_name": "Kenafric Industries",
+    "sector": "Food Manufacturing",
+    "county": "Nairobi",
+    "city": "Nairobi",
+    "website": "https://www.kenafricind.com/",
+    "source": "News archives - manufacturing companies Kenya",
+    "confidence_score": 80,
+    "discovery_notes": "Manufactures confectionery, beverages, biscuits, culinary products since 1980s, manufacturer of Kingsmil bread"
+  },
+  {
+    "company_name": "Bamburi Cement",
+    "sector": "Construction Materials",
+    "county": "Nairobi",
+    "city": "Industrial Area",
+    "website": "https://www.lafarge.co.ke/",
+    "source": "News archives - manufacturing companies Kenya",
+    "confidence_score": 75,
+    "discovery_notes": "Historical cement manufacturer, established 1950s, part of LafargeHolcim, check ecosystem visibility"
+  },
+  {
+    "company_name": "Chandaria Industries",
+    "sector": "Manufacturing",
+    "county": "Nairobi",
+    "city": "Ruaraka",
+    "website": "https://www.chandaria.com/",
+    "source": "News archives - manufacturing companies Kenya",
+    "confidence_score": 75,
+    "discovery_notes": "Tissue and hygiene products, established presence, manufacturing focus rather than tech"
+  }
+]

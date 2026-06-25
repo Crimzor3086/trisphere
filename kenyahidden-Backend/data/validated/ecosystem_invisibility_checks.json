@@ -1,0 +1,53 @@
+[
+  {
+    "company_name": "Bamburi Cement",
+    "check_type": "ecosystem_invisibility",
+    "startup_ecosystem_mentions": "Yes",
+    "evidence": [
+      "Publicly listed on Nairobi Securities Exchange (BAMB.ke)",
+      "Multiple media articles in Financial Afrik, Security Magazine, African Financials",
+      "Wikipedia page indicates public company status"
+    ],
+    "adjustment": "Public company status reduces invisibility score - reclassify from Hidden Champion potential to Watchlist or Reject",
+    "recommended_action": "Keep in database but mark as former Hidden Champion - now publicly visible"
+  },
+  {
+    "company_name": "Broadways Bread",
+    "check_type": "ecosystem_invisibility",
+    "startup_ecosystem_mentions": "No",
+    "evidence": [
+      "No TechCabal coverage found",
+      "No VC funding announcements found",
+      "No accelerator participation found",
+      "Pre-independence family business focus",
+      "Traditional bakery operations without startup narrative"
+    ],
+    "adjustment": "Qualifies for Hidden Champion status - maintain high invisibility score",
+    "recommended_action": "Proceed with founder outreach - qualifies as Hidden Champion"
+  },
+  {
+    "company_name": "Mini-Bakeries Limited (Supa Loaf)",
+    "check_type": "ecosystem_invisibility",
+    "startup_ecosystem_mentions": "No",
+    "evidence": [
+      "No TechCabal/Startup media coverage found",
+      "Family business focus",
+      "Operational excellence over fundraising focus"
+    ],
+    "adjustment": "Maintains Hidden Champion status",
+    "recommended_action": "Proceed with founder outreach - qualifies as Hidden Champion"
+  },
+  {
+    "company_name": "Njoro Canning Factory",
+    "check_type": "ecosystem_invisibility",
+    "startup_ecosystem_mentions": "No",
+    "evidence": [
+      "No TechCabal coverage found",
+      "No VC funding announcements",
+      "FSSC 22000 certification focus",
+      "Traditional manufacturing without startup positioning"
+    ],
+    "adjustment": "Maintains Hidden Champion status",
+    "recommended_action": "Proceed with founder outreach - qualifies as Hidden Champion"
+  }
+]

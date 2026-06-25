@@ -1,0 +1,98 @@
+[
+  {
+    "company_name": "Njoro Canning Factory",
+    "years_operating": 47,
+    "years_evidence": "Founded 1978, 45+ Years of Trust",
+    "reviews": "Testimonial evidence: 98% customer satisfaction, 500+ employees, 100+ distributors, 1000+ local farmers",
+    "branches": "Single facility in Njoro, Nakuru with distribution network across East Africa",
+    "employees": "500+",
+    "export_activity": "Exports to 15+ countries, serves UN, British Army, Unilever",
+    "distribution_network": "100+ distributors across East Africa",
+    "partnerships": "UN, British Army, Unilever contracts; in-house microbiology quality lab",
+    "institutional_customers": "United Nations, British Army, Unilever",
+    "growth_signals": "Multi-brand portfolio (Golden Valley, Bake N Top, Tomchi, KOL), expanded product lines",
+    "revenue_proxies": "500+ employees, 100+ distributors, 1000+ local farmers, FSSC 22000 certification",
+    "validation_sources": [
+      "https://njorocanning.com/",
+      "Company website testimonial evidence",
+      "FSSC 22000 certification documentation"
+    ]
+  },
+  {
+    "company_name": "Broadways Bread",
+    "years_operating": 67,
+    "years_evidence": "Started in 1958 in Thika, before Kenya independence",
+    "reviews": "Not publicly available - family business with institutional distribution",
+    "branches": "Thika headquarters, Eldoret distribution center (established 2014)",
+    "employees": "Not specified - established bakery operations",
+    "export_activity": "Not identified - domestic focus",
+    "distribution_network": "Nationwide distribution including Western Kenya via Eldoret center",
+    "partnerships": "School feeding programs, retail distribution networks",
+    "institutional_customers": "Retail chains, school feeding programs",
+    "growth_signals": "Distribution center expansion to Eldoret (2014), multiple brands (Broadways, New Seneta)",
+    "revenue_proxies": "Multiple production facilities, nationwide distribution, multi-decade operation",
+    "validation_sources": [
+      "https://www.tuko.co.ke/business-economy/561135-list-top-bread-companies-kenya-owners-business-locations/",
+      "Business Daily Africa archives",
+      "Company history documentation"
+    ]
+  },
+  {
+    "company_name": "Mini-Bakeries Limited (Supa Loaf)",
+    "years_operating": 55,
+    "years_evidence": "Founded 1970 in Mombasa, expanded to multi-billion shilling business",
+    "reviews": "Top 3 bread brand in Kenya per Statista",
+    "branches": "Multiple facilities - started Mombasa, expanded nationwide",
+    "employees": "Substantial - multi-billion shilling operation",
+    "export_activity": "Not identified - primarily domestic",
+    "distribution_network": "Nationwide distribution across Kenya",
+    "partnerships": "Retail distribution, kiosk networks",
+    "institutional_customers": "Kiosks (54% of consumers), supermarkets (43% of consumers)",
+    "growth_signals": "Expansion from home-based bakery to industrial operation, top 3 market position",
+    "revenue_proxies": "Multi-billion shilling valuation, top market position, 3+ sons in management",
+    "validation_sources": [
+      "https://www.tuko.co.ke/business-economy/561135-list-top-bread-companies-kenya-owners-business-locations/",
+      "Statista market research",
+      "Sagaci Research survey"
+    ]
+  },
+  {
+    "company_name": "Cold Solutions Kenya",
+    "years_operating": null,
+    "years_evidence": "Not specified - check for founding date",
+    "reviews": "Facebook presence 68 likes, 144 followers - operational focus",
+    "branches": "Tatu City, Kiambu facility, mentions of Tanzania, Uganda, Rwanda locations",
+    "employees": "Not specified - operating in East Africa region",
+    "export_activity": "Regional presence in East Africa (Tanzania, Uganda, Rwanda)",
+    "distribution_network": "Temperature-controlled storage across East Africa region",
+    "partnerships": "Cold chain solutions for pharmaceutical and food industries",
+    "institutional_customers": "Pharmaceutical companies, food distributors, farmers",
+    "growth_signals": "Multi-zone refrigerated fleet, real-time tracking systems, blast freezing capabilities",
+    "revenue_proxies": "14 temperature-controlled chambers, cold storage capacity, regional presence",
+    "validation_sources": [
+      "https://www.coldsolutionskenya.com/",
+      "https://www.facebook.com/coldsolutionskenya",
+      "ZoomInfo listing"
+    ],
+    "invisibility_check_needed": true
+  },
+  {
+    "company_name": "Paperbags Limited",
+    "years_operating": 58,
+    "years_evidence": "Established 1967",
+    "reviews": "Not specified - ISO certified",
+    "branches": "Nairobi operations",
+    "employees": "Not specified",
+    "export_activity": "Not identified - domestic focus",
+    "distribution_network": "Paper packaging supplier to Kenyan market",
+    "partnerships": "ISO certification for food safety",
+    "institutional_customers": "Food industry clients",
+    "growth_signals": "Long-term operation since 1967, ISO certification maintained",
+    "revenue_proxies": "58-year track record, ISO certified",
+    "validation_sources": [
+      "https://www.businesslist.co.ke/company/paperbags-limited/374226",
+      "ISO certification records"
+    ],
+    "invisibility_check_needed": true
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "name": "kenya-hidden-champions",
+  "version": "1.0.0",
+  "description": "Kenya Hidden Champions Discovery Engine — monorepo root",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "pipeline": "node scripts/run_pipeline.js",
+    "daily": "node scripts/daily_discovery.js",
+    "discover:import": "node scripts/daily_discovery.js --import data/raw/discovery_candidates.json",
+    "backend": "npm --prefix backend run dev",
+    "frontend": "npm --prefix frontend run dev",
+    "compile": "npx hardhat compile --config hardhat.config.cjs",
+    "deploy:fuji": "npx hardhat run scripts/deploy.cjs --network fuji --config hardhat.config.cjs",
+    "verify-chain": "node -e \"import('./backend/chain.js').then(m => m.getChainStatus()).then(s => console.log(JSON.stringify(s,null,2))).catch(console.error)\"",
+    "node-version": "node -v"
+  },
+  "dependencies": {
+    "csv-parse": "^5.6.0",
+    "csv-stringify": "^6.5.2",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.2",
+    "hardhat": "^2.22.19"
+  }
+}
