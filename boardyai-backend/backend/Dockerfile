@@ -14,6 +14,8 @@ RUN mix local.hex --force && \
 COPY mix.exs mix.lock ./
 RUN mix deps.get --only prod && mix deps.compile
 
+ARG CACHEBUST=1
+
 COPY . .
 RUN mix compile --no-deps-check
 
