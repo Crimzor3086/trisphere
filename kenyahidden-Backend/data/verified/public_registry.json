@@ -6,7 +6,15 @@
     "score": 86,
     "validation_status": "Qualified",
     "profile_hash": "278ba4c8893cc19370d4a29fb2223801dce245ef7b101a93529e59e2fe06502c",
-    "timestamp": "2026-06-26T05:52:08.138Z"
+    "timestamp": "2026-06-26T06:47:38.268Z",
+    "chain": {
+      "business_id": "khc-3",
+      "registry_address": "0x59b922Daf1F5de301c75e3af03c5f2e958Ea38Dd",
+      "tx_hash": "0x4d46fe650bbe61c05f50ec4d373e82ac59848978410fcb88e0d7b1da49aade6e",
+      "block_number": 56578495,
+      "explorer_url": "https://testnet.snowtrace.io/tx/0x4d46fe650bbe61c05f50ec4d373e82ac59848978410fcb88e0d7b1da49aade6e",
+      "synced_at": "2026-06-26T06:47:59.734Z"
+    }
   },
   {
     "business_id": "2",
@@ -15,7 +23,15 @@
     "score": 82,
     "validation_status": "Qualified",
     "profile_hash": "515648ba8d8e8cda1cd868ad9b2f053cb9d0507dba1bc9a6b607cf5eac8e6be2",
-    "timestamp": "2026-06-26T05:52:08.138Z"
+    "timestamp": "2026-06-26T06:47:38.267Z",
+    "chain": {
+      "business_id": "khc-2",
+      "registry_address": "0x59b922Daf1F5de301c75e3af03c5f2e958Ea38Dd",
+      "tx_hash": "0x95af30399aee27e304cc532df8deaec865a13a219eb2ced9e529d8d25663ecd7",
+      "block_number": 56578496,
+      "explorer_url": "https://testnet.snowtrace.io/tx/0x95af30399aee27e304cc532df8deaec865a13a219eb2ced9e529d8d25663ecd7",
+      "synced_at": "2026-06-26T06:48:06.271Z"
+    }
   },
   {
     "business_id": "1",
@@ -24,6 +40,14 @@
     "score": 80,
     "validation_status": "Qualified",
     "profile_hash": "85620209a7163e07781f051f8502bcd89956decd4aba3e30a12dd5e009e1b8cf",
-    "timestamp": "2026-06-26T05:52:08.137Z"
+    "timestamp": "2026-06-26T06:47:38.266Z",
+    "chain": {
+      "business_id": "khc-1",
+      "registry_address": "0x59b922Daf1F5de301c75e3af03c5f2e958Ea38Dd",
+      "tx_hash": "0x83ca413fc2e80cab6fb9673b637b2395b951afef4594674bdba16bc1df0d36f9",
+      "block_number": 56578497,
+      "explorer_url": "https://testnet.snowtrace.io/tx/0x83ca413fc2e80cab6fb9673b637b2395b951afef4594674bdba16bc1df0d36f9",
+      "synced_at": "2026-06-26T06:48:12.825Z"
+    }
   }
 ]

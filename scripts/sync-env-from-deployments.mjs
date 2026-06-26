@@ -41,6 +41,7 @@ function upsertEnv(filePath, updates) {
 
 upsertEnv(path.join(ROOT, 'kenyahidden-Backend/.env'), {
   KHC_REGISTRY_ADDRESS: contracts.khcRegistry,
+  PORT: '5000',
 });
 
 upsertEnv(path.join(ROOT, 'trendhuntjack-backend-/.env'), {
