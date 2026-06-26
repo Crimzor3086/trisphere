@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
+import Link from 'next/link';
+import ActionButton from '@/components/ActionButton';
 import Counter from '@/components/Counter';
 
 const metrics = [
@@ -128,9 +130,13 @@ export default function Home() {
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               {['Generate report', 'Find sources', 'Create watchlist'].map((action) => (
-                <button key={action} className="rounded-xl border border-border/80 bg-surface px-3 py-2 text-sm text-foreground transition hover:border-copilot">
+                <Link
+                  key={action}
+                  href={action === 'Generate report' ? '/copilot' : action === 'Find sources' ? '/insights' : '/profile'}
+                  className="rounded-xl border border-border/80 bg-surface px-3 py-2 text-sm text-foreground transition hover:border-copilot"
+                >
                   {action}
-                </button>
+                </Link>
               ))}
             </div>
           </Panel>
@@ -185,7 +191,7 @@ export default function Home() {
                     <p className="font-medium text-white">{name}</p>
                     <p className="text-sm text-muted">{92 - index * 4}% match strength</p>
                   </div>
-                  <button className="rounded-xl bg-accent/15 px-3 py-2 text-sm text-accent">Review</button>
+                  <ActionButton action="Review" doneLabel="Queued" className="rounded-xl bg-accent/15 px-3 py-2 text-accent" />
                 </div>
               ))}
             </div>

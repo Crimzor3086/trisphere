@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import ActionButton from '@/components/ActionButton';
 
 export default function ProfilePage() {
   return (
@@ -23,9 +24,7 @@ export default function ProfilePage() {
               <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/15 text-3xl font-semibold text-primary">TS</div>
               <p className="mt-4 font-semibold text-white">Connected Wallet</p>
               <p className="mt-1 font-mono text-sm text-muted">0x7a3b...c1d2</p>
-              <button className="mt-4 rounded-full border border-border/80 bg-midnight/80 px-4 py-2 text-sm text-foreground/80 transition hover:border-primary">
-                Disconnect
-              </button>
+              <ActionButton action="Disconnect" doneLabel="Disconnected" className="mt-4 bg-midnight/80" />
             </div>
           </motion.div>
 
@@ -38,9 +37,7 @@ export default function ProfilePage() {
             >
               <p className="text-sm uppercase tracking-[0.35em] text-muted">Current Role</p>
               <p className="mt-3 text-2xl font-semibold text-white">Founder</p>
-              <button className="mt-4 rounded-full bg-primary/10 px-4 py-2 text-sm text-primary transition hover:bg-primary/20">
-                Change role
-              </button>
+              <ActionButton action="Change role" doneLabel="Role selector opened" className="mt-4 bg-primary/10 text-primary hover:bg-primary/20" />
             </motion.div>
 
             <motion.div

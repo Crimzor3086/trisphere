@@ -6,7 +6,8 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "node tests/ui-contract.test.mjs"
   },
   "dependencies": {
     "@vapi-ai/web": "^2.5.2",

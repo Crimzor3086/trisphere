@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import ActionButton from '@/components/ActionButton';
 
 const insights = [
   {
@@ -77,8 +78,8 @@ function InsightCard({ insight, index }: { insight: typeof insights[0]; index: n
       <h2 className="mt-4 text-2xl font-semibold text-white">{insight.title}</h2>
       <p className="mt-3 text-foreground/80">{insight.excerpt}</p>
       <div className="mt-5 flex flex-wrap gap-3">
-        <button className="rounded-full border border-border/80 px-4 py-2 text-sm text-foreground/90 transition hover:border-primary">Save</button>
-        <button className="rounded-full border border-border/80 px-4 py-2 text-sm text-foreground/90 transition hover:border-primary">Share</button>
+        <ActionButton action="Save" doneLabel="Saved" />
+        <ActionButton action="Share" doneLabel="Shared" />
       </div>
     </motion.article>
   );

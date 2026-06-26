@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import ActionButton from '@/components/ActionButton';
 import VerificationPanel from '@/components/VerificationPanel';
 
 const company = {
@@ -91,9 +92,9 @@ export default function CompanyProfilePage() {
           <section className="space-y-6">
             <h2 className="text-2xl font-semibold text-white">Suggested Actions</h2>
             <div className="flex flex-wrap gap-3">
-              <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-primary/90">Request Intro</button>
-              <button className="rounded-full border border-border px-6 py-3 text-sm text-foreground/90 transition hover:border-primary">Save to Watchlist</button>
-              <button className="rounded-full border border-border px-6 py-3 text-sm text-foreground/90 transition hover:border-primary">Share Signal</button>
+              <ActionButton action="Request Intro" doneLabel="Intro Requested" variant="primary" className="px-6 py-3" />
+              <ActionButton action="Save to Watchlist" doneLabel="Saved" className="px-6 py-3" />
+              <ActionButton action="Share Signal" doneLabel="Shared" className="px-6 py-3" />
             </div>
           </section>
 

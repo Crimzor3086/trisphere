@@ -2,6 +2,7 @@
 
 import { motion, animate } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import ActionButton from '@/components/ActionButton';
 
 interface Match {
   participants: string;
@@ -44,12 +45,8 @@ export default function MatchCard({ match }: { match: Match }) {
         ))}
       </div>
       <div className="mt-6 flex flex-wrap gap-3">
-        <button className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-primary/90">
-          Request Intro
-        </button>
-        <button className="rounded-full border border-border/80 px-4 py-2 text-sm text-foreground/90 transition hover:border-primary">
-          Save Match
-        </button>
+        <ActionButton action="Request Intro" doneLabel="Intro Requested" variant="primary" />
+        <ActionButton action="Save Match" doneLabel="Saved" />
       </div>
     </motion.article>
   );
