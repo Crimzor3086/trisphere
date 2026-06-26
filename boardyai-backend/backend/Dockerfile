@@ -5,11 +5,18 @@ RUN apt-get update && apt-get install -y build-essential inotify-tools postgresq
 WORKDIR /app
 
 ENV HEX_HTTP_TIMEOUT=120 \
-    HEX_HTTP_CONCURRENCY=1
+    HEX_HTTP_CONCURRENCY=1 \
+    MIX_ENV=prod
 
 RUN mix local.hex --force && \
     mix local.rebar --force
 
-COPY . .
+COPY mix.exs mix.lock ./
+RUN mix deps.get --only prod && mix deps.compile
 
-CMD mix deps.get && mix ecto.setup && mix phx.server
+COPY . .
+RUN mix compile
+
+EXPOSE 4000
+
+CMD ["sh", "-c", "mix ecto.setup && mix phx.server"]
