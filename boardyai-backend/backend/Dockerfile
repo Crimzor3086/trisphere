@@ -15,8 +15,8 @@ COPY mix.exs mix.lock ./
 RUN mix deps.get --only prod && mix deps.compile
 
 COPY . .
-RUN mix compile
+RUN mix compile --no-deps-check
 
 EXPOSE 4000
 
-CMD ["sh", "-c", "mix ecto.setup && mix phx.server"]
+CMD ["sh", "-c", "mix ecto.migrate && mix phx.server"]
