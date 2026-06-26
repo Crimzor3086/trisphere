@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Navbar from '@/components/Navbar';
+import AppShell from '@/components/AppShell';
 import WalletProvider from '@/components/WalletProvider';
 
 export const metadata: Metadata = {
@@ -13,8 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="min-h-screen bg-midnight text-foreground">
         <WalletProvider>
-          <Navbar />
-          {children}
+          <AppShell>{children}</AppShell>
         </WalletProvider>
       </body>
     </html>

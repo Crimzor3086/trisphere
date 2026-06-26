@@ -1,287 +1,245 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect } from 'react';
-import TrendCard from '@/components/TrendCard';
-import LiveFeedCard from '@/components/LiveFeedCard';
-import PersonaSelector from '@/components/PersonaSelector';
-import VerificationPanel from '@/components/VerificationPanel';
-import DailyBriefCard from '@/components/DailyBriefCard';
-import WatchlistCard from '@/components/WatchlistCard';
-import AlertsCard from '@/components/AlertsCard';
+import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
 import Counter from '@/components/Counter';
 
-const liveFeed = [
-  {
-    title: 'AI Interns Replacing Junior Analysts',
-    velocity: '+87%',
-    confidence: 91,
-    type: 'Trend',
-  },
-  {
-    title: 'Manufacturing Firm — Eldoret',
-    championScore: 89,
-    type: 'Hidden Champion',
-  },
-  {
-    title: 'Investor ↔ Climate Startup',
-    matchStrength: 94,
-    type: 'Match Opportunity',
-  },
+const metrics = [
+  { label: 'Emerging Trends', value: 128, change: '+18%', accent: 'text-primary', note: '12 accelerating this week' },
+  { label: 'Hidden Champions', value: 42, change: '+7', accent: 'text-secondary', note: 'Verified across 9 sectors' },
+  { label: 'Active Matches', value: 316, change: '+24%', accent: 'text-accent', note: 'Founder, investor, operator graph' },
+  { label: 'Registry Records', value: 905, change: '99.2%', accent: 'text-registry', note: 'Confidence-weighted attestations' },
 ];
 
-const trends = [
-  {
-    title: 'East African Logistics Surge',
-    velocity: 76,
-    category: 'Logistics',
-    opportunity: 88,
-    firstSeen: '2h ago',
-    verified: true,
-  },
-  {
-    title: 'AI-Driven Climate Financing',
-    velocity: 69,
-    category: 'Climate',
-    opportunity: 82,
-    firstSeen: '5h ago',
-    verified: true,
-  },
-  {
-    title: 'Creator-Led Commerce Networks',
-    velocity: 54,
-    category: 'Creator Economy',
-    opportunity: 74,
-    firstSeen: '1d ago',
-    verified: false,
-  },
+const signals = [
+  { name: 'Climate logistics', score: 92, color: 'bg-primary' },
+  { name: 'AI procurement', score: 86, color: 'bg-copilot' },
+  { name: 'Specialty manufacturing', score: 81, color: 'bg-secondary' },
+  { name: 'Creator commerce rails', score: 73, color: 'bg-accent' },
+];
+
+const opportunities = [
+  ['East African cold-chain surge', 'TrendSphere', 'High velocity signal linked to 6 verified operators.', '91'],
+  ['Eldoret precision fabrication', 'ChampionSphere', 'Underrated exporter with strong resilience indicators.', '89'],
+  ['Climate fintech x logistics match', 'ConnectSphere', 'Investor thesis overlaps with 4 emerging-market founders.', '94'],
+  ['Registry confidence anomaly', 'Avalanche Registry', 'New contributor hash confirms prior field research.', '87'],
+];
+
+const registry = [
+  ['Eldoret Manufacturing Works', 'Verified', '0x82A4...19F2', 'Fuji', '96%'],
+  ['Lagos Cold Hub', 'Verified', '0x71C9...B3E0', 'Fuji', '93%'],
+  ['Nairobi Fleet AI', 'Review', '0x32AE...90D1', 'Fuji', '84%'],
 ];
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden bg-midnight text-foreground">
-      <section className="relative overflow-hidden px-6 pb-24 pt-10 sm:px-10 lg:px-16">
-        <div className="absolute inset-0 bg-midnight-glow" />
-        <div className="relative mx-auto flex max-w-7xl flex-col gap-12">
-          <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+    <main className="min-h-screen bg-midnight px-4 py-6 text-foreground sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1500px] space-y-6">
+        <motion.section
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="overflow-hidden rounded-[20px] border border-border/70 bg-surface/80 p-6 shadow-xl shadow-black/20 backdrop-blur-xl sm:p-8"
+        >
+          <div className="grid gap-8 xl:grid-cols-[1.1fr_0.9fr]">
             <div>
-              <p className="mb-4 inline-flex rounded-full border border-border/80 bg-card/80 px-4 py-2 text-sm text-primary">
-                Live intelligence for the next wave
-              </p>
-              <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Discover opportunities before they become obvious.
+              <p className="mi-label text-copilot">Opportunity Intelligence Network</p>
+              <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+                One intelligence graph for trends, champions, matches, and verified opportunity signals.
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-foreground/80">
-                AI-powered trend detection, hidden champion discovery, and strategic matchmaking built for founders, investors, creators, and operators.
+              <p className="mt-5 max-w-3xl text-base leading-8 text-muted sm:text-lg">
+                TriSphere transforms fragmented market signals into actionable opportunities for founders, investors, creators,
+                researchers, governments, and enterprises.
               </p>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a href="#live-feed" className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-base font-semibold text-foreground transition hover:bg-primary/90">
-                Explore Live Intelligence
-              </a>
-              <button className="mi-btn-ghost px-6 py-3 text-base font-semibold">
-                Connect Wallet
-              </button>
+            <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
+              {[
+                ['TrendSphere', 'Emerging trends', 'border-primary/40 bg-primary/10 text-primary'],
+                ['ChampionSphere', 'Hidden champions', 'border-secondary/40 bg-secondary/10 text-secondary'],
+                ['ConnectSphere', 'AI matchmaking', 'border-accent/40 bg-accent/10 text-accent'],
+              ].map(([name, label, classes]) => (
+                <div key={name} className={`rounded-[20px] border p-4 ${classes}`}>
+                  <p className="text-sm font-semibold text-white">{name}</p>
+                  <p className="mt-1 text-sm opacity-90">{label}</p>
+                </div>
+              ))}
             </div>
-          </header>
+          </div>
+        </motion.section>
 
-          <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
-            <div className="relative overflow-hidden rounded-3xl border border-border/80 bg-surface/70 p-8 shadow-glow backdrop-blur-xl">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.14),_transparent_30%)]" />
-              <div className="relative flex flex-col gap-10">
-                <div className="space-y-4">
-                  <p className="text-sm uppercase tracking-[0.3em] text-primary/80">TrendSphere — live dashboard</p>
-                  <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <p className="text-3xl font-semibold text-white">Real-time signal pulse</p>
-                      <p className="mt-2 max-w-xl text-muted">Live trends, hidden champions, and match suggestions updating every second.</p>
-                    </div>
-                    <div className="inline-flex items-center gap-2 rounded-full bg-midnight/90 px-4 py-2 text-sm text-foreground/80 shadow-lg shadow-black/30">
-                      <span className="inline-flex h-2.5 w-2.5 animate-pulse rounded-full bg-secondary" />
-                      <span>Live now</span>
-                    </div>
+        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {metrics.map((metric, index) => (
+            <motion.article
+              key={metric.label}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.04 }}
+              whileHover={{ y: -4 }}
+              className="rounded-[20px] border border-border/70 bg-card/80 p-6 shadow-xl shadow-black/20 transition hover:border-primary/40 hover:shadow-glow"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <p className="text-sm text-muted">{metric.label}</p>
+                <span className={`rounded-xl bg-surface px-2.5 py-1 text-xs font-semibold ${metric.accent}`}>{metric.change}</span>
+              </div>
+              <p className={`mt-5 font-mono text-4xl font-semibold tabular-nums ${metric.accent}`}>
+                <Counter value={metric.value} />
+              </p>
+              <p className="mt-3 text-sm text-muted">{metric.note}</p>
+            </motion.article>
+          ))}
+        </section>
+
+        <section className="grid gap-6 xl:grid-cols-[1.35fr_0.65fr]">
+          <Panel title="Trending Signals" kicker="Live velocity">
+            <div className="space-y-5">
+              {signals.map((signal) => (
+                <div key={signal.name}>
+                  <div className="mb-2 flex items-center justify-between text-sm">
+                    <span className="text-foreground">{signal.name}</span>
+                    <span className="font-mono text-muted">{signal.score}</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-midnight">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${signal.score}%` }}
+                      transition={{ duration: 0.9 }}
+                      className={`h-full rounded-full ${signal.color}`}
+                    />
                   </div>
                 </div>
+              ))}
+            </div>
+            <div className="mt-6 grid grid-cols-7 gap-2">
+              {Array.from({ length: 28 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="aspect-square rounded-md border border-border/50 bg-surface"
+                  style={{ opacity: 0.35 + ((index * 17) % 60) / 100 }}
+                />
+              ))}
+            </div>
+          </Panel>
 
-<div className="grid gap-4 sm:grid-cols-2">
-                    <div className="rounded-3xl border border-border/70 bg-midnight/80 p-6 shadow-xl shadow-black/30">
-                      <p className="text-sm uppercase tracking-[0.28em] text-muted">Signals Today</p>
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="mt-4 text-5xl font-semibold text-white"
-                      >
-                        <Counter value={42} />
-                      </motion.p>
-                      <p className="mt-2 text-sm text-muted">New verified insights since dawn.</p>
+          <Panel title="AI Daily Brief" kicker="Embedded analyst">
+            <div className="rounded-[18px] border border-copilot/25 bg-copilot/10 p-5">
+              <p className="text-sm leading-7 text-foreground/90">
+                Logistics, climate finance, and specialty manufacturing are converging into a near-term opportunity window.
+                Prioritize verified operators with export signals and strong founder reachability.
+              </p>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {['Generate report', 'Find sources', 'Create watchlist'].map((action) => (
+                <button key={action} className="rounded-xl border border-border/80 bg-surface px-3 py-2 text-sm text-foreground transition hover:border-copilot">
+                  {action}
+                </button>
+              ))}
+            </div>
+          </Panel>
+        </section>
+
+        <section className="grid gap-6 xl:grid-cols-[1fr_0.9fr]">
+          <Panel title="Opportunity Feed" kicker="Actionable intelligence">
+            <div className="space-y-3">
+              {opportunities.map(([title, source, detail, score]) => (
+                <article key={title} className="rounded-[18px] border border-border/70 bg-surface/70 p-4 transition hover:-translate-y-1 hover:border-primary/40">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="font-semibold text-white">{title}</p>
+                      <p className="mt-1 text-sm text-muted">{detail}</p>
                     </div>
-                    <div className="rounded-3xl border border-border/70 bg-midnight/80 p-6 shadow-xl shadow-black/30">
-                      <p className="text-sm uppercase tracking-[0.28em] text-muted">Opportunity Score</p>
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.25 }}
-                        className="mt-4 text-5xl font-semibold text-white"
-                      >
-                        <Counter value={91} />
-                      </motion.p>
-                      <p className="mt-2 text-sm text-muted">Score weighted by velocity, relevance, and verification.</p>
-                    </div>
+                    <span className="rounded-xl bg-card px-3 py-2 font-mono text-sm text-white">{score}</span>
                   </div>
+                  <p className="mt-3 text-xs uppercase tracking-[0.22em] text-muted">{source}</p>
+                </article>
+              ))}
+            </div>
+          </Panel>
 
-<div className="grid gap-4 sm:grid-cols-3">
-                    <div className="rounded-3xl border border-border/70 bg-midnight/80 p-5 text-sm text-foreground/80">
-                      <p className="font-semibold text-white">Trends</p>
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                        className="mt-3 text-3xl font-semibold text-highlight"
-                      >
-                        <Counter value={16} />
-                      </motion.p>
-                      <p className="mt-2 text-muted">Emerging now</p>
-                    </div>
-                    <div className="rounded-3xl border border-border/70 bg-midnight/80 p-5 text-sm text-foreground/80">
-                      <p className="font-semibold text-white">Champions</p>
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.35 }}
-                        className="mt-3 text-3xl font-semibold text-secondary"
-                      >
-                        <Counter value={7} />
-                      </motion.p>
-                      <p className="mt-2 text-muted">Verified hidden champions</p>
-                    </div>
-                    <div className="rounded-3xl border border-border/70 bg-midnight/80 p-5 text-sm text-foreground/80">
-                      <p className="font-semibold text-white">Matches</p>
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                        className="mt-3 text-3xl font-semibold text-accent"
-                      >
-                        <Counter value={23} />
-                      </motion.p>
-                      <p className="mt-2 text-muted">AI recommended connections</p>
-                    </div>
+          <Panel title="Hidden Champion Spotlight" kicker="ChampionSphere">
+            <div className="rounded-[18px] border border-secondary/25 bg-secondary/10 p-5">
+              <p className="text-xl font-semibold text-white">Eldoret Manufacturing Works</p>
+              <p className="mt-3 text-sm leading-7 text-muted">
+                Export-capable fabrication company with strong hiring, procurement, and customer concentration signals.
+              </p>
+              <div className="mt-5 grid grid-cols-3 gap-3 text-sm">
+                {[
+                  ['Score', '89'],
+                  ['Confidence', '96%'],
+                  ['Signals', '18'],
+                ].map(([label, value]) => (
+                  <div key={label} className="rounded-2xl bg-midnight/70 p-3">
+                    <p className="text-muted">{label}</p>
+                    <p className="mt-1 font-mono text-lg text-white">{value}</p>
                   </div>
+                ))}
               </div>
             </div>
+          </Panel>
+        </section>
 
-            <div className="rounded-3xl border border-border/70 bg-midnight/80 p-6 shadow-glow shadow-black/30 backdrop-blur-xl">
-              <div className="mb-6 rounded-3xl border border-border/60 bg-card/80 p-5">
-                <p className="text-sm uppercase tracking-[0.35em] text-primary/80">Personalize your experience</p>
-                <p className="mt-3 text-lg text-foreground/80">Choose the role that best describes you to tailor the dashboard and recommendations.</p>
-              </div>
-              <PersonaSelector />
+        <section className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
+          <Panel title="Suggested Connections" kicker="ConnectSphere">
+            <div className="space-y-3">
+              {['Climate infrastructure fund', 'Regional logistics operator', 'AI procurement founder'].map((name, index) => (
+                <div key={name} className="flex items-center justify-between rounded-[18px] border border-border/70 bg-surface/70 p-4">
+                  <div>
+                    <p className="font-medium text-white">{name}</p>
+                    <p className="text-sm text-muted">{92 - index * 4}% match strength</p>
+                  </div>
+                  <button className="rounded-xl bg-accent/15 px-3 py-2 text-sm text-accent">Review</button>
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
-      </section>
+          </Panel>
 
-      <section id="live-feed" className="space-y-8 border-t border-border/80 px-6 pb-24 pt-16 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.35em] text-primary/80">Live Intelligence Feed</p>
-              <h2 className="mt-4 text-3xl font-semibold text-white">Bloomberg meets Product Hunt.</h2>
+          <Panel title="Recent Registry Activity" kicker="Trust infrastructure">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[620px] text-left text-sm">
+                <thead className="text-xs uppercase tracking-[0.18em] text-muted">
+                  <tr>
+                    <th className="pb-3 font-medium">Record</th>
+                    <th className="pb-3 font-medium">Status</th>
+                    <th className="pb-3 font-medium">Hash</th>
+                    <th className="pb-3 font-medium">Network</th>
+                    <th className="pb-3 text-right font-medium">Confidence</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/60">
+                  {registry.map(([record, status, hash, network, confidence]) => (
+                    <tr key={hash}>
+                      <td className="py-3 text-white">{record}</td>
+                      <td className="py-3">
+                        <span className="rounded-lg bg-success/10 px-2 py-1 text-xs text-success">{status}</span>
+                      </td>
+                      <td className="py-3 font-mono text-muted">{hash}</td>
+                      <td className="py-3 text-muted">{network}</td>
+                      <td className="py-3 text-right font-mono text-white">{confidence}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <div className="rounded-full border border-border/80 bg-midnight/80 px-4 py-2 text-sm text-foreground/80">
-              Real-time insights updated every few seconds
-            </div>
-          </div>
-
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
-            {liveFeed.map((item) => (
-              <LiveFeedCard key={item.title} item={item} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-border/80 px-6 pb-24 pt-16 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-6 lg:grid-cols-3">
-            {[
-              {
-                title: 'What is TriSphere?',
-                description: 'A premium intelligence platform that surfaces high-value trends, hidden champions, and strategic matches before the market notices.',
-              },
-              {
-                title: 'Why it matters',
-                description: 'Move faster with AI-curated signals, verification that builds trust, and a discovery engine tuned for your role.',
-              },
-              {
-                title: 'What can you do now?',
-                description: 'Explore live trends, discover verified companies, and ask the AI copilot for tailored next steps.',
-              },
-            ].map((item) => (
-              <div key={item.title} className="rounded-3xl border border-border/80 bg-card/90 p-8 shadow-xl shadow-black/30">
-                <p className="text-sm uppercase tracking-[0.35em] text-primary/80">{item.title}</p>
-                <p className="mt-4 text-lg leading-8 text-foreground/80">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-border/80 px-6 pb-24 pt-16 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-6 lg:grid-cols-3">
-            <DailyBriefCard />
-            <WatchlistCard />
-            <AlertsCard />
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-border/80 px-6 pb-24 pt-16 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-7xl">
-          <VerificationPanel />
-        </div>
-      </section>
-
-      <section className="border-t border-border/80 px-6 pb-24 pt-16 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-6 rounded-3xl border border-border/80 bg-card/80 p-8 shadow-xl shadow-black/30 lg:grid-cols-[1fr_320px]">
-            <div>
-              <p className="text-sm uppercase tracking-[0.35em] text-primary/80">How to get started</p>
-              <h2 className="mt-4 text-3xl font-semibold text-white">Begin your first intelligence sprint.</h2>
-              <p className="mt-4 max-w-2xl text-foreground/80">Connect your wallet, pick your role, and jump into the live feed to uncover trends and matches that align with your thesis.</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-primary/90">Explore Live Intelligence</button>
-                <button className="rounded-full border border-border px-6 py-3 text-sm text-foreground/90 transition hover:border-primary">Open AI Copilot</button>
-              </div>
-            </div>
-            <div className="rounded-3xl border border-border/80 bg-midnight/70 p-6 text-foreground/80">
-              <p className="text-sm uppercase tracking-[0.35em] text-muted">Role first personalization</p>
-              <ul className="mt-6 space-y-3 text-sm leading-7">
-                <li>Founder: launch faster with founder-ready trend briefs.</li>
-                <li>Investor: identify emerging sectors and fundraising signals.</li>
-                <li>Creator: uncover viral topics and content hooks.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-border/80 px-6 pb-24 pt-16 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col gap-4 rounded-3xl border border-border/80 bg-card/80 p-8 shadow-xl shadow-black/30 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.35em] text-primary/80">Never lead with blockchain</p>
-              <h2 className="mt-4 text-3xl font-semibold text-white">Trust, transparency, verification.</h2>
-              <p className="mt-3 max-w-2xl text-muted">Avalanche is the foundation for immutable attribution, not the headline. We surface the confidence, not the token.</p>
-            </div>
-            <div className="rounded-3xl bg-midnight/80 px-6 py-4 text-sm text-foreground/80">
-              Verified on Avalanche with simple language and clear hashes.
-            </div>
-          </div>
-        </div>
-      </section>
+          </Panel>
+        </section>
+      </div>
     </main>
+  );
+}
+
+function Panel({ title, kicker, children }: { title: string; kicker: string; children: ReactNode }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -2 }}
+      className="rounded-[20px] border border-border/70 bg-card/80 p-6 shadow-xl shadow-black/20 backdrop-blur-xl"
+    >
+      <div className="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <p className="text-xs uppercase tracking-[0.24em] text-muted">{kicker}</p>
+          <h2 className="mt-2 text-xl font-semibold text-white">{title}</h2>
+        </div>
+      </div>
+      {children}
+    </motion.article>
   );
 }

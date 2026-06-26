@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Navbar from '@/components/Navbar';
 import { motion } from 'framer-motion';
 
 const sampleResponses = [
@@ -56,21 +55,21 @@ export default function CopilotPage() {
 
   return (
     <main className="min-h-screen bg-midnight text-foreground">
-      <Navbar />
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-10 lg:px-16">
         <header className="mb-10 space-y-4">
-          <p className="text-sm uppercase tracking-[0.35em] text-primary/80">AI Copilot</p>
-          <h1 className="text-4xl font-semibold text-white sm:text-5xl">Ask for the intelligence you need and get focused next steps.</h1>
-          <p className="max-w-3xl text-lg leading-8 text-muted">Your daily strategy assistant for trends, champions, matches, and Avalanche verification.</p>
+          <p className="text-sm uppercase tracking-[0.35em] text-copilot">AI Copilot</p>
+          <h1 className="text-4xl font-semibold text-white sm:text-5xl">Embedded analyst for the opportunity graph.</h1>
+          <p className="max-w-3xl text-lg leading-8 text-muted">Ask across trends, champions, matches, registry records, reports, and source trails without leaving the workspace.</p>
         </header>
 
-        <section className="rounded-3xl border border-border/80 bg-card/80 p-6 shadow-xl shadow-black/30">
+        <section className="grid gap-6 xl:grid-cols-[1fr_360px]">
+          <div className="rounded-[20px] border border-border/80 bg-card/80 p-6 shadow-xl shadow-black/30">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm uppercase tracking-[0.35em] text-muted">Ask the Copilot</p>
-              <p className="mt-2 text-muted">Type a question and receive a curated intelligence summary instantly.</p>
+              <p className="mt-2 text-muted">Type a question and receive a curated intelligence summary with next actions.</p>
             </div>
-            <div className="rounded-full bg-midnight/80 px-4 py-2 text-sm text-foreground/80">Streaming responses, no wait.</div>
+            <div className="rounded-2xl bg-copilot/10 px-4 py-2 text-sm text-copilot">Streaming analyst mode</div>
           </div>
 
           <form
@@ -90,7 +89,7 @@ export default function CopilotPage() {
               placeholder="What opportunities are emerging in East African logistics?"
               className="min-w-0 flex-1 rounded-3xl border border-border/80 bg-midnight/90 px-5 py-4 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
-            <button type="submit" className="rounded-3xl bg-primary px-6 py-4 text-sm font-semibold text-foreground transition hover:bg-primary/90">
+            <button type="submit" className="rounded-3xl bg-copilot px-6 py-4 text-sm font-semibold text-midnight transition hover:bg-copilot/90">
               Analyze
             </button>
           </form>
@@ -117,6 +116,40 @@ export default function CopilotPage() {
               response
             )}
           </div>
+          </div>
+
+          <aside className="space-y-6">
+            <div className="rounded-[20px] border border-border/80 bg-card/80 p-6">
+              <p className="text-sm uppercase tracking-[0.24em] text-muted">Suggested prompts</p>
+              <div className="mt-4 space-y-3">
+                {[
+                  'Show verified companies linked to climate logistics.',
+                  'Draft an investor brief from this week signals.',
+                  'Which matches should I prioritize today?',
+                ].map((prompt) => (
+                  <button
+                    key={prompt}
+                    onClick={() => setQuery(prompt)}
+                    className="w-full rounded-2xl border border-border/70 bg-surface/70 p-3 text-left text-sm text-foreground transition hover:border-copilot"
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-[20px] border border-border/80 bg-card/80 p-6">
+              <p className="text-sm uppercase tracking-[0.24em] text-muted">Related entities</p>
+              <div className="mt-4 space-y-3 text-sm">
+                {['East African Logistics Surge', 'Eldoret Manufacturing Works', 'Climate infrastructure fund'].map((entity) => (
+                  <div key={entity} className="rounded-2xl bg-surface/70 p-3 text-foreground/90">{entity}</div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-[20px] border border-registry/30 bg-registry/10 p-6">
+              <p className="text-sm font-semibold text-white">Sources attached</p>
+              <p className="mt-2 text-sm leading-6 text-muted">Registry records, backend discovery notes, live trend feed, and match staking events.</p>
+            </div>
+          </aside>
         </section>
       </div>
     </main>

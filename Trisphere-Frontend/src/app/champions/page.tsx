@@ -28,7 +28,7 @@ export default async function ChampionsPage() {
     <main className="min-h-screen bg-midnight text-foreground">
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-10 lg:px-16">
         <header className="mb-10 space-y-4">
-          <p className="text-sm uppercase tracking-[0.35em] text-primary/80">ChampionSphere · KHC-DE</p>
+          <p className="text-sm uppercase tracking-[0.35em] text-secondary">ChampionSphere</p>
           <h1 className="text-4xl font-semibold text-white sm:text-5xl">Discover hidden champions across emerging markets.</h1>
           <p className="max-w-3xl text-lg leading-8 text-muted">
             Live data from the Kenya Hidden Champions backend — discover, score, profile, and verify private companies.

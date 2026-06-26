@@ -1,19 +1,17 @@
 'use client';
 
-import Navbar from '@/components/Navbar';
 import { motion } from 'framer-motion';
 
 const badges = [
-  { name: 'Trend Scout', count: 0, color: 'sky' },
-  { name: 'Champion Hunter', count: 0, color: 'blue' },
-  { name: 'Connector', count: 0, color: 'emerald' },
-  { name: 'Validator', count: 0, color: 'amber' },
+  { name: 'Trend Scout', count: 0, colorClass: 'bg-primary/10 text-primary' },
+  { name: 'Champion Hunter', count: 0, colorClass: 'bg-secondary/10 text-secondary' },
+  { name: 'Connector', count: 0, colorClass: 'bg-accent/10 text-accent' },
+  { name: 'Validator', count: 0, colorClass: 'bg-registry/10 text-registry' },
 ];
 
 export default function RewardsPage() {
   return (
     <main className="min-h-screen bg-midnight text-foreground">
-      <Navbar />
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-10 lg:px-16">
         <header className="mb-10 space-y-4">
           <p className="text-sm uppercase tracking-[0.35em] text-primary/80">Rewards</p>
@@ -31,7 +29,7 @@ export default function RewardsPage() {
               whileHover={{ scale: 1.05 }}
               className="rounded-3xl border border-border/80 bg-card/80 p-6 text-center shadow-xl shadow-black/30"
             >
-              <div className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-${badge.color}-500/10 text-${badge.color}-300 text-2xl`}>
+              <div className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl text-2xl ${badge.colorClass}`}>
                 {badge.name.charAt(0)}
               </div>
               <p className="font-semibold text-white">{badge.name}</p>

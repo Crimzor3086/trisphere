@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Navbar from '@/components/Navbar';
 import VerificationPanel from '@/components/VerificationPanel';
 
 const company = {
@@ -18,7 +17,6 @@ const company = {
 export default function CompanyProfilePage() {
   return (
     <main className="min-h-screen bg-midnight text-foreground">
-      <Navbar />
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-10 lg:px-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

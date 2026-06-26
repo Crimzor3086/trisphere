@@ -1,12 +1,10 @@
 'use client';
 
-import Navbar from '@/components/Navbar';
 import { motion } from 'framer-motion';
 
 export default function ProfilePage() {
   return (
     <main className="min-h-screen bg-midnight text-foreground">
-      <Navbar />
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-10 lg:px-16">
         <header className="mb-10 space-y-4">
           <p className="text-sm uppercase tracking-[0.35em] text-primary/80">Profile</p>
