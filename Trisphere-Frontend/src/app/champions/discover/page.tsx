@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { fetchDiscover, type DiscoverItem } from '@/lib/api/khc';
+import KhcBackendBanner from '@/components/KhcBackendBanner';
+import { fetchDiscover, type DiscoverItem, KhcBackendError } from '@/lib/api/khc';
 
 function scoreLabel(item: DiscoverItem) {
   if (item.score === null) return 'No score';
@@ -11,8 +12,15 @@ function scoreLabel(item: DiscoverItem) {
 }
 
 export default async function ChampionsDiscoverPage() {
-  const res = await fetchDiscover();
-  const items = res.items;
+  let items: DiscoverItem[] = [];
+  let backendError: string | null = null;
+
+  try {
+    const res = await fetchDiscover();
+    items = res.items;
+  } catch (error) {
+    backendError = error instanceof KhcBackendError ? error.message : 'Failed to load discover data.';
+  }
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
@@ -24,6 +32,8 @@ export default async function ChampionsDiscoverPage() {
           <h1 className="text-3xl font-semibold text-white">Discover</h1>
           <p className="text-slate-400">Company, sector, location, and champion score from the KHC backend.</p>
         </header>
+
+        {backendError ? <KhcBackendBanner message={backendError} /> : null}
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {items.slice(0, 500).map((item) => (
@@ -48,6 +58,10 @@ export default async function ChampionsDiscoverPage() {
             </Link>
           ))}
         </div>
+
+        {!backendError && items.length === 0 && (
+          <p className="mt-6 text-sm text-slate-400">No candidates yet. Run the pipeline from the Champions home page.</p>
+        )}
 
         {items.length > 500 && (
           <p className="mt-4 text-sm text-slate-500">Showing first 500 of {items.length}.</p>

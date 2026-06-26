@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { fetchRegistry, type RegistryItem } from '@/lib/api/khc';
+import KhcBackendBanner from '@/components/KhcBackendBanner';
+import { fetchRegistry, type RegistryItem, KhcBackendError } from '@/lib/api/khc';
 
 function formatDate(ts: string) {
   try {
@@ -10,8 +11,15 @@ function formatDate(ts: string) {
 }
 
 export default async function ChampionsRegistryPage() {
-  const res = await fetchRegistry();
-  const items: RegistryItem[] = res.items;
+  let items: RegistryItem[] = [];
+  let backendError: string | null = null;
+
+  try {
+    const res = await fetchRegistry();
+    items = res.items;
+  } catch (error) {
+    backendError = error instanceof KhcBackendError ? error.message : 'Failed to load registry data.';
+  }
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
@@ -23,6 +31,8 @@ export default async function ChampionsRegistryPage() {
           <h1 className="text-3xl font-semibold text-white">Registry</h1>
           <p className="text-slate-400">Verified entries from the KHC on-chain registry (hash-only public layer).</p>
         </header>
+
+        {backendError ? <KhcBackendBanner message={backendError} /> : null}
 
         <div className="overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/80">
           <table className="min-w-full text-left text-sm">
@@ -61,7 +71,7 @@ export default async function ChampionsRegistryPage() {
           </table>
         </div>
 
-        {items.length === 0 && (
+        {!backendError && items.length === 0 && (
           <p className="mt-6 text-sm text-slate-400">No verified entries yet. Run the pipeline from the Champions home page.</p>
         )}
       </div>

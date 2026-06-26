@@ -1,14 +1,23 @@
 import Link from 'next/link';
-import { fetchDiscover, fetchRegistry, getKhcPipelineUrl } from '@/lib/api/khc';
+import KhcBackendBanner from '@/components/KhcBackendBanner';
+import { fetchDiscover, fetchRegistry, getKhcPipelineUrl, KhcBackendError } from '@/lib/api/khc';
 
 function fmt(n: number) {
   return new Intl.NumberFormat('en-KE').format(n);
 }
 
 export default async function ChampionsPage() {
-  const [discoverRes, registryRes] = await Promise.all([fetchDiscover(), fetchRegistry()]);
-  const items = discoverRes.items;
-  const registry = registryRes.items;
+  let items: Awaited<ReturnType<typeof fetchDiscover>>['items'] = [];
+  let registry: Awaited<ReturnType<typeof fetchRegistry>>['items'] = [];
+  let backendError: string | null = null;
+
+  try {
+    const [discoverRes, registryRes] = await Promise.all([fetchDiscover(), fetchRegistry()]);
+    items = discoverRes.items;
+    registry = registryRes.items;
+  } catch (error) {
+    backendError = error instanceof KhcBackendError ? error.message : 'Failed to load champion data.';
+  }
 
   const discoveredCount = items.length;
   const hiddenChampionsCount = items.filter((x) => x.score !== null && (x.score as number) >= 80).length;
@@ -32,6 +41,8 @@ export default async function ChampionsPage() {
             </Link>
           </nav>
         </header>
+
+        {backendError ? <KhcBackendBanner message={backendError} /> : null}
 
         <section className="grid gap-4 sm:grid-cols-3">
           {[

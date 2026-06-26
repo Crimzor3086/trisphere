@@ -6,7 +6,7 @@
     "score": 86,
     "validation_status": "Qualified",
     "profile_hash": "278ba4c8893cc19370d4a29fb2223801dce245ef7b101a93529e59e2fe06502c",
-    "timestamp": "2026-06-25T12:32:09.995Z"
+    "timestamp": "2026-06-26T05:52:08.138Z"
   },
   {
     "business_id": "2",
@@ -15,7 +15,7 @@
     "score": 82,
     "validation_status": "Qualified",
     "profile_hash": "515648ba8d8e8cda1cd868ad9b2f053cb9d0507dba1bc9a6b607cf5eac8e6be2",
-    "timestamp": "2026-06-25T12:32:09.994Z"
+    "timestamp": "2026-06-26T05:52:08.138Z"
   },
   {
     "business_id": "1",
@@ -24,6 +24,6 @@
     "score": 80,
     "validation_status": "Qualified",
     "profile_hash": "85620209a7163e07781f051f8502bcd89956decd4aba3e30a12dd5e009e1b8cf",
-    "timestamp": "2026-06-25T12:32:09.994Z"
+    "timestamp": "2026-06-26T05:52:08.137Z"
   }
 ]
