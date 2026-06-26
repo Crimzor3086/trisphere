@@ -6,6 +6,7 @@ const navItems = [
   { label: 'Trends', href: '/trends' as const },
   { label: 'Champions', href: '/champions' as const },
   { label: 'Matches', href: '/matches' as const },
+  { label: 'Commerce', href: '/commerce' as const },
   { label: 'Insights', href: '/insights' as const },
   { label: 'Copilot', href: '/copilot' as const },
   { label: 'Rewards', href: '/rewards' as const },
