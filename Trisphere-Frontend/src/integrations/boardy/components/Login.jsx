@@ -1,6 +1,15 @@
 import { ConnectButton } from "thirdweb/react";
+import { createWallet, inAppWallet } from "thirdweb/wallets";
 import { client } from "../client";
-import { inAppWallet } from "thirdweb/wallets";
+import { avalancheFuji } from "@/lib/chains";
+
+const wallets = [
+  inAppWallet({
+    auth: { options: ["google", "email", "apple"] },
+  }),
+  createWallet("io.metamask"),
+  createWallet("io.rabby"),
+];
 
 export default function Login({ onBack }) {
   return (
@@ -20,19 +29,17 @@ export default function Login({ onBack }) {
             <span style={{ fontSize: '2.5rem', color: 'white', fontWeight: 'bold' }}>B</span>
           </div>
           <h1 className="title">Boardy.ai</h1>
-          <p className="subtitle">Connect your wallet or use social login to enter the Verified Professional Synergy Protocol.</p>
+          <p className="subtitle">Connect Core Wallet or MetaMask on Avalanche Fuji to enter the Verified Professional Synergy Protocol.</p>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <ConnectButton
             client={client}
-            wallets={[
-              inAppWallet({
-                auth: { options: ["google", "email", "apple"] },
-              }),
-            ]}
+            chain={avalancheFuji}
+            chains={[avalancheFuji]}
+            wallets={wallets}
             theme="dark"
-            connectModal={{ size: "wide", title: "Join Boardy.ai" }}
+            connectModal={{ size: "wide", title: "Join Boardy.ai on Fuji" }}
           />
         </div>
       </div>

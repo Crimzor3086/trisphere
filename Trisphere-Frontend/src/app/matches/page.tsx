@@ -1,7 +1,6 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { ThirdwebProvider } from 'thirdweb/react';
 import '@/integrations/boardy/index.css';
 
 const BoardyApp = dynamic(() => import('@/integrations/boardy/BoardyApp'), {
@@ -24,9 +23,7 @@ export default function MatchesPage() {
             Voice-first professional matchmaking — connect wallet, set your need/offer profile, and discover strategic matches.
           </p>
         </header>
-        <ThirdwebProvider>
-          <BoardyApp />
-        </ThirdwebProvider>
+        <BoardyApp />
       </div>
     </main>
   );

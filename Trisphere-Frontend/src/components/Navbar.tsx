@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ConnectWalletButton from '@/components/ConnectWalletButton';
 
 const navItems = [
   { label: 'Home', href: '/' as const },
@@ -29,12 +30,13 @@ export default function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 sm:flex">
-          <button className="rounded-full border border-slate-800/80 bg-slate-900/80 px-4 py-2 text-sm text-slate-200 transition hover:border-sky-400 hover:text-white">
-            Connect Wallet
-          </button>
-          <button className="rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400">
+          <ConnectWalletButton />
+          <Link
+            href="/matches"
+            className="rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400"
+          >
             Get Started
-          </button>
+          </Link>
         </div>
       </div>
     </nav>

@@ -87,3 +87,41 @@ Trisphere/
 Copy `Trisphere-Frontend/.env.example` to `.env.local`. Backend URLs default to the ports above; override only when deploying.
 
 Each subsystem retains its own `.env` / `env.example` for backend configuration — those backends are unchanged except Trend Hunter CORS now allows the TriSphere origin on port 3000.
+
+## Avalanche Fuji blockchain
+
+All three products deploy to **Avalanche Fuji** (chainId `43113`).
+
+### Deploy contracts
+
+```bash
+# Root .env needs PRIVATE_KEY + RPC_URL (see .env.example)
+npm install
+npm run deploy:fuji
+npm run sync:env
+```
+
+Manifest: `deployments/trisphere-fuji.json`
+
+| Contract | Purpose |
+|----------|---------|
+| `TrendRegistry` | Trend first-seen proofs |
+| `KHCRegistry` | Verified hidden champion hashes |
+| `BoardyMatchStaking` | 0.01 AVAX bilateral match stakes |
+| `BoardyMilestoneEscrow` | Milestone escrow (Boardy) |
+
+### Wallet connection (Trisphere-Frontend)
+
+- Navbar **Connect Wallet** → Thirdweb on Fuji (MetaMask / social login)
+- `/matches` → real `stake()` on BoardyMatchStaking
+- `/trends` → Trend Hunter iframe (Core / MetaMask via `window.ethereum`)
+- `/champions` → **Sync to Fuji** panel for KHCRegistry
+
+After deploy, restart backends so they pick up new contract addresses.
+
+```bash
+# Sync verified champions to chain (KHC backend must be running)
+curl -X POST http://localhost:5000/api/chain/sync
+```
+
+Faucet: https://faucet.avax.network/

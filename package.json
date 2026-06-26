@@ -1,0 +1,12 @@
+{
+  "name": "trisphere",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy:fuji": "node scripts/deploy-fuji-all.mjs",
+    "sync:env": "node scripts/sync-env-from-deployments.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}

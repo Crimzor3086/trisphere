@@ -2,7 +2,7 @@
   "network": "fuji",
   "chainId": 43113,
   "contractName": "TrendRegistry",
-  "address": "",
-  "deployer": "",
-  "deployedAt": ""
+  "address": "0x90A0edF60BE62886c4ECD96386c54962f07684F0",
+  "deployer": "0x238A0E863Aa6e495921b9c7777a4047CB8A913c1",
+  "deployedAt": "2026-06-26T06:33:28.333Z"
 }

@@ -1,24 +1,25 @@
 import { useState, useEffect } from "react";
-import { useDisconnect } from "thirdweb/react";
+import { useDisconnect, useActiveAccount, useSendTransaction } from "thirdweb/react";
+import { getContract, prepareContractCall, toWei } from "thirdweb";
 import { client } from "../client";
 import { getBoardyApiUrl } from "../api";
 import Vapi from "@vapi-ai/web";
-
-import { prepareTransaction, toWei } from "thirdweb";
-import { useSendTransaction } from "thirdweb/react";
-import { defineChain } from "thirdweb/chains";
+import { avalancheFuji } from "@/lib/chains";
+import { getTriSphereContracts } from "@/lib/contracts";
+import { BOARDY_MATCH_STAKING_ABI } from "@/lib/abis/boardyMatchStaking";
 
 export default function Dashboard({ profile }) {
   const { disconnect } = useDisconnect();
-  const [callStatus, setCallStatus] = useState("inactive"); // inactive, connecting, active
-  const [matchStatus, setMatchStatus] = useState("idle"); // idle, staking, queuing, matched
+  const activeAccount = useActiveAccount();
+  const { mutateAsync: sendTx, isPending } = useSendTransaction();
+  const [callStatus, setCallStatus] = useState("inactive");
+  const [matchStatus, setMatchStatus] = useState("idle");
   const [vapiInstance, setVapiInstance] = useState(null);
-  
-  // Thirdweb transaction hook
-  const { mutate: sendTx, isPending } = useSendTransaction();
+  const [txHash, setTxHash] = useState(null);
+
+  const contracts = getTriSphereContracts();
 
   useEffect(() => {
-    // Initialize Vapi with Public Key from env
     const VapiClass = Vapi.default || Vapi;
     const vapi = new VapiClass(process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY || 'dummy_key');
     setVapiInstance(vapi);
@@ -34,47 +35,89 @@ export default function Dashboard({ profile }) {
   }, []);
 
   const handleStakeClick = async () => {
+    if (!activeAccount?.address) {
+      alert("Connect your wallet on Avalanche Fuji first (navbar or login).");
+      return;
+    }
+
+    if (!contracts.boardyMatchStaking) {
+      alert("BoardyMatchStaking contract address is not configured. Deploy contracts and set NEXT_PUBLIC_BOARDY_MATCH_STAKING_ADDRESS.");
+      return;
+    }
+
     setMatchStatus("staking");
-    
-    // Simulate Blockchain Staking Delay
-    setTimeout(async () => {
-      setMatchStatus("queuing");
-      
-      try {
-        const apiUrl = getBoardyApiUrl();
-        
-        // Wait another 3.5 seconds to simulate pgvector matchmaking
-        setTimeout(async () => {
-          const response = await fetch(`${apiUrl}/matches/1/confirm-payment`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user_id: profile.id })
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            if (data.success && data.chat_room_id) {
-              setMatchStatus("matched");
-              
-              // Give them 1.5 seconds to see the success state before jumping
-              setTimeout(() => {
-                if (window.onMatchUnlocked) {
-                  window.onMatchUnlocked(data.chat_room_id);
-                }
-              }, 1500);
-            }
-          } else {
-            alert("Payment recorded, but failed to provision room on backend.");
-            setMatchStatus("idle");
-          }
-        }, 3500);
-        
-      } catch (err) {
-        console.error("Backend Error:", err);
-        alert("Payment successful but network error occurred.");
-        setMatchStatus("idle");
+    setTxHash(null);
+
+    try {
+      const prep = await fetch("/api/boardy/chain/prepare-match", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          walletAddress: activeAccount.address,
+          profileId: profile.id,
+        }),
+      });
+
+      if (!prep.ok) {
+        const err = await prep.json().catch(() => ({}));
+        throw new Error(err.error || "Failed to prepare on-chain match");
       }
-    }, 2000);
+
+      const { matchId } = await prep.json();
+      const stakeValue = toWei(contracts.boardyStakeAmountAvax || "0.01");
+
+      const contract = getContract({
+        client,
+        chain: avalancheFuji,
+        address: contracts.boardyMatchStaking,
+        abi: BOARDY_MATCH_STAKING_ABI,
+      });
+
+      const transaction = prepareContractCall({
+        contract,
+        method: "stake",
+        params: [matchId],
+        value: stakeValue,
+      });
+
+      const result = await sendTx(transaction);
+      setTxHash(result.transactionHash);
+
+      setMatchStatus("queuing");
+
+      await fetch("/api/boardy/chain/complete-match", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ matchId }),
+      });
+
+      const apiUrl = getBoardyApiUrl();
+      const response = await fetch(`${apiUrl}/matches/1/confirm-payment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: profile.id }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.chat_room_id) {
+          setMatchStatus("matched");
+          setTimeout(() => {
+            if (window.onMatchUnlocked) {
+              window.onMatchUnlocked(data.chat_room_id);
+            }
+          }, 1500);
+          return;
+        }
+      }
+
+      alert("On-chain stake succeeded but backend match provisioning failed.");
+      setMatchStatus("idle");
+    } catch (err) {
+      console.error("Stake flow error:", err);
+      alert(err.message || "Staking failed. Ensure Fuji testnet AVAX in your wallet.");
+      setMatchStatus("idle");
+    }
   };
 
   const handleCallClick = async () => {
@@ -92,7 +135,7 @@ export default function Dashboard({ profile }) {
         }
         await vapiInstance?.start(assistantId, {
           variableValues: {
-            wallet_address: profile.id // The user's internal database ID or wallet
+            wallet_address: profile.id
           }
         });
       } catch (err) {
@@ -136,17 +179,23 @@ export default function Dashboard({ profile }) {
             {matchStatus === "idle" && (
               <>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.5', marginBottom: '1.5rem' }}>
-                  To ensure high-quality matches and prevent ghosting, we require a small 0.01 AVAX commitment stake on the Avalanche network.
+                  Stake {contracts.boardyStakeAmountAvax || '0.01'} AVAX on Avalanche Fuji via BoardyMatchStaking. Both sides stake to unlock the match.
                 </p>
+                {contracts.boardyMatchStaking ? (
+                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
+                    Contract: {contracts.boardyMatchStaking.slice(0, 10)}…
+                  </p>
+                ) : null}
                 <button 
                   className="btn-primary" 
                   onClick={handleStakeClick}
+                  disabled={isPending}
                   style={{ width: '100%', padding: '1rem', position: 'relative' }}
                 >
-                  Stake 0.01 AVAX to Unlock Matches
+                  Stake {contracts.boardyStakeAmountAvax || '0.01'} AVAX to Unlock Matches
                 </button>
                 <p style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.75rem' }}>
-                  Funds are securely held in the Boardy.ai smart contract.
+                  Funds held in BoardyMatchStaking on Fuji testnet.
                 </p>
               </>
             )}
@@ -154,8 +203,8 @@ export default function Dashboard({ profile }) {
             {matchStatus === "staking" && (
               <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
                 <div className="spinner" style={{ width: '40px', height: '40px', margin: '0 auto 1rem', border: '3px solid rgba(16, 185, 129, 0.2)', borderTopColor: '#10b981', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
-                <h4 style={{ color: '#10b981', marginBottom: '0.5rem' }}>Confirming Transaction</h4>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Waiting for Avalanche network finality...</p>
+                <h4 style={{ color: '#10b981', marginBottom: '0.5rem' }}>Confirming Fuji Transaction</h4>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Waiting for Avalanche network finality…</p>
               </div>
             )}
 
@@ -168,8 +217,8 @@ export default function Dashboard({ profile }) {
                 </div>
                 <h4 style={{ color: '#60a5fa', marginBottom: '0.5rem', fontSize: '1.1rem' }}>AI Matchmaking in Progress</h4>
                 <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                  Analyzing your professional summary...<br/>
-                  Calculating cosine similarity across 1536-dimensional embeddings in pgvector...
+                  On-chain stake confirmed{txHash ? ` (${txHash.slice(0, 10)}…)` : ''}.<br/>
+                  Calculating cosine similarity across pgvector embeddings…
                 </p>
               </div>
             )}
@@ -178,7 +227,7 @@ export default function Dashboard({ profile }) {
               <div style={{ textAlign: 'center', padding: '2rem 1rem', background: 'rgba(16, 185, 129, 0.05)', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
                 <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>✅</div>
                 <h4 style={{ color: '#10b981', marginBottom: '0.5rem', fontSize: '1.1rem' }}>Optimal Match Found!</h4>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Routing you to your secure Chat Room...</p>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Routing you to your secure Chat Room…</p>
               </div>
             )}
             

@@ -1,0 +1,15 @@
+{
+  "network": "fuji",
+  "chainId": 43113,
+  "rpcUrl": "https://api.avax-test.network/ext/bc/C/rpc",
+  "explorer": "https://testnet.snowtrace.io",
+  "deployedAt": "2026-06-26T06:33:59.469Z",
+  "deployer": "0x238A0E863Aa6e495921b9c7777a4047CB8A913c1",
+  "contracts": {
+    "trendRegistry": "0x90A0edF60BE62886c4ECD96386c54962f07684F0",
+    "khcRegistry": "0x59b922Daf1F5de301c75e3af03c5f2e958Ea38Dd",
+    "boardyMatchStaking": "0xA9d63536cd7e9B12F501BDb2F51C0822afbe0215",
+    "boardyMilestoneEscrow": "0xc6d301478BfcCC5a1252862fC73B54397A0D2F13",
+    "boardyStakeAmountAvax": "0.01"
+  }
+}

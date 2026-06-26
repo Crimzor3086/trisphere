@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import KhcBackendBanner from '@/components/KhcBackendBanner';
+import KhcChainPanel from '@/components/KhcChainPanel';
 import { fetchDiscover, fetchRegistry, getKhcPipelineUrl, KhcBackendError } from '@/lib/api/khc';
 
 function fmt(n: number) {
@@ -92,6 +93,8 @@ export default async function ChampionsPage() {
             </ul>
           </div>
         </section>
+
+        <KhcChainPanel />
       </div>
     </main>
   );
