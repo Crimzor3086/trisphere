@@ -41,9 +41,9 @@ export default function KhcChainPanel() {
   }
 
   return (
-    <section className="mt-8 rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6">
-      <h2 className="font-semibold text-white">Avalanche Fuji On-Chain Registry</h2>
-      <p className="mt-2 text-sm text-slate-400">
+    <section className="mt-8 rounded-3xl border border-secondary/20 bg-card/80 p-6 shadow-glow-secondary">
+      <h2 className="font-semibold text-foreground">Avalanche Fuji On-Chain Registry</h2>
+      <p className="mt-2 text-sm text-muted">
         KHCRegistry on Fuji testnet — sync verified champions from the pipeline to chain.
       </p>
 
@@ -54,7 +54,7 @@ export default function KhcChainPanel() {
             href={snowtraceAddress(contracts.khcRegistry)}
             target="_blank"
             rel="noreferrer"
-            className="text-sky-300 hover:text-white"
+            className="text-primary hover:text-white"
           >
             {contracts.khcRegistry.slice(0, 10)}…{contracts.khcRegistry.slice(-8)}
           </a>
@@ -66,7 +66,7 @@ export default function KhcChainPanel() {
           type="button"
           onClick={loadStatus}
           disabled={loading}
-          className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-sky-400"
+          className="rounded-full border border-border px-4 py-2 text-sm text-foreground/90 hover:border-primary"
         >
           Check chain status
         </button>
@@ -74,20 +74,20 @@ export default function KhcChainPanel() {
           type="button"
           onClick={handleSync}
           disabled={loading}
-          className="rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-sky-400"
+          className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-foreground hover:bg-primary/90"
         >
           Sync to Fuji
         </button>
       </div>
 
-      {error ? <p className="mt-4 text-sm text-red-300">{error}</p> : null}
+      {error ? <p className="mt-4 text-sm text-error">{error}</p> : null}
       {status ? (
-        <pre className="mt-4 overflow-x-auto rounded-xl bg-slate-950/80 p-4 text-xs text-slate-300">
+        <pre className="mt-4 overflow-x-auto rounded-xl bg-midnight/80 p-4 text-xs text-foreground/80">
           {JSON.stringify(status, null, 2)}
         </pre>
       ) : null}
       {syncResult ? (
-        <pre className="mt-4 overflow-x-auto rounded-xl bg-slate-950/80 p-4 text-xs text-emerald-300">
+        <pre className="mt-4 overflow-x-auto rounded-xl bg-midnight/80 p-4 text-xs text-secondary">
           {syncResult}
         </pre>
       ) : null}

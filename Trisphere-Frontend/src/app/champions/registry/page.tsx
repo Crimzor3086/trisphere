@@ -22,21 +22,21 @@ export default async function ChampionsRegistryPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
+    <main className="min-h-screen bg-midnight text-foreground">
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-10 lg:px-16">
         <header className="mb-8 space-y-3">
-          <Link href="/champions" className="text-sm text-sky-300 hover:text-white">
+          <Link href="/champions" className="text-sm text-primary hover:text-white">
             ← Champions
           </Link>
           <h1 className="text-3xl font-semibold text-white">Registry</h1>
-          <p className="text-slate-400">Verified entries from the KHC on-chain registry (hash-only public layer).</p>
+          <p className="text-muted">Verified entries from the KHC on-chain registry (hash-only public layer).</p>
         </header>
 
         {backendError ? <KhcBackendBanner message={backendError} /> : null}
 
-        <div className="overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/80">
+        <div className="overflow-hidden rounded-2xl border border-border/80 bg-card/80">
           <table className="min-w-full text-left text-sm">
-            <thead className="bg-slate-950/80 text-xs uppercase text-slate-500">
+            <thead className="bg-midnight/80 text-xs uppercase text-muted">
               <tr>
                 <th className="px-4 py-3">Company</th>
                 <th className="px-4 py-3">Sector</th>
@@ -46,25 +46,25 @@ export default async function ChampionsRegistryPage() {
             </thead>
             <tbody>
               {items.slice(0, 500).map((it, idx) => (
-                <tr key={`${it.profile_hash}-${idx}`} className="border-t border-slate-800/80">
+                <tr key={`${it.profile_hash}-${idx}`} className="border-t border-border/80">
                   <td className="px-4 py-3 font-medium text-white">{it.company}</td>
-                  <td className="px-4 py-3 text-slate-400">{it.sector}</td>
+                  <td className="px-4 py-3 text-muted">{it.sector}</td>
                   <td className="px-4 py-3">
                     {it.validation_status === 'Qualified' ? (
-                      <span className="rounded-full bg-emerald-500/15 px-2 py-1 text-xs font-semibold text-emerald-300">
+                      <span className="rounded-full bg-secondary/15 px-2 py-1 text-xs font-semibold text-secondary">
                         Qualified
                       </span>
                     ) : it.validation_status === 'Rejected' ? (
-                      <span className="rounded-full bg-red-500/15 px-2 py-1 text-xs font-semibold text-red-300">
+                      <span className="rounded-full bg-error/15 px-2 py-1 text-xs font-semibold text-error">
                         Rejected
                       </span>
                     ) : (
-                      <span className="rounded-full bg-amber-500/15 px-2 py-1 text-xs font-semibold text-amber-300">
+                      <span className="rounded-full bg-highlight/15 px-2 py-1 text-xs font-semibold text-highlight">
                         Needs Validation
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-slate-400">{formatDate(it.timestamp)}</td>
+                  <td className="px-4 py-3 text-muted">{formatDate(it.timestamp)}</td>
                 </tr>
               ))}
             </tbody>
@@ -72,7 +72,7 @@ export default async function ChampionsRegistryPage() {
         </div>
 
         {!backendError && items.length === 0 && (
-          <p className="mt-6 text-sm text-slate-400">No verified entries yet. Run the pipeline from the Champions home page.</p>
+          <p className="mt-6 text-sm text-muted">No verified entries yet. Run the pipeline from the Champions home page.</p>
         )}
       </div>
     </main>

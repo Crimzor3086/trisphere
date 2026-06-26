@@ -17,7 +17,7 @@ const company = {
 
 export default function CompanyProfilePage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
+    <main className="min-h-screen bg-midnight text-foreground">
       <Navbar />
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-10 lg:px-16">
         <motion.div
@@ -28,31 +28,31 @@ export default function CompanyProfilePage() {
         >
           <header className="space-y-4">
             <div className="flex items-center gap-3">
-              <span className="inline-flex rounded-full bg-blue-500/10 px-3 py-1 text-sm text-blue-300">Champion {company.score}</span>
-              <span className="text-sm text-slate-500">• {company.industry}</span>
+              <span className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-sm text-primary">Champion {company.score}</span>
+              <span className="text-sm text-muted">• {company.industry}</span>
             </div>
             <h1 className="text-4xl font-semibold text-white sm:text-5xl">{company.name}</h1>
-            <p className="max-w-3xl text-lg leading-8 text-slate-300">{company.description}</p>
+            <p className="max-w-3xl text-lg leading-8 text-foreground/80">{company.description}</p>
           </header>
 
           <div className="grid gap-4 lg:grid-cols-3">
-            <div className="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20">
-              <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Location</p>
+            <div className="rounded-3xl border border-border/80 bg-card/80 p-6 shadow-xl shadow-black/30">
+              <p className="text-sm uppercase tracking-[0.3em] text-muted">Location</p>
               <p className="mt-3 text-2xl font-semibold text-white">{company.location}</p>
             </div>
-            <div className="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20">
-              <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Founded</p>
+            <div className="rounded-3xl border border-border/80 bg-card/80 p-6 shadow-xl shadow-black/30">
+              <p className="text-sm uppercase tracking-[0.3em] text-muted">Founded</p>
               <p className="mt-3 text-2xl font-semibold text-white">{company.founded}</p>
             </div>
-            <div className="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20">
-              <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Size</p>
+            <div className="rounded-3xl border border-border/80 bg-card/80 p-6 shadow-xl shadow-black/30">
+              <p className="text-sm uppercase tracking-[0.3em] text-muted">Size</p>
               <p className="mt-3 text-2xl font-semibold text-white">{company.employees}</p>
             </div>
           </div>
 
           <section className="space-y-6">
             <h2 className="text-2xl font-semibold text-white">Market Position</h2>
-            <p className="text-slate-300 leading-relaxed">
+            <p className="text-foreground/80 leading-relaxed">
               Eldoret Manufacturing has captured 12% of Kenya\'s renewable energy component market with a focus on solar panel frames and mounting systems. Their proximity to raw materials and engineering talent provides significant cost advantages.
             </p>
           </section>
@@ -65,10 +65,10 @@ export default function CompanyProfilePage() {
                 { label: 'Partnerships', value: '12', change: '+3 this quarter' },
                 { label: 'Momentum', value: 'High', change: 'Accelerating' },
               ].map((item) => (
-                <div key={item.label} className="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-5">
-                  <p className="text-sm uppercase tracking-[0.3em] text-slate-500">{item.label}</p>
+                <div key={item.label} className="rounded-3xl border border-border/80 bg-card/80 p-5">
+                  <p className="text-sm uppercase tracking-[0.3em] text-muted">{item.label}</p>
                   <p className="mt-3 text-2xl font-semibold text-white">{item.value}</p>
-                  <p className="mt-1 text-xs text-emerald-300">{item.change}</p>
+                  <p className="mt-1 text-xs text-secondary">{item.change}</p>
                 </div>
               ))}
             </div>
@@ -82,9 +82,9 @@ export default function CompanyProfilePage() {
                 { sector: 'Supply Chain', description: 'Looking for raw material sourcing partners' },
                 { sector: 'Distribution', description: 'Needs pan-African logistics network' },
               ].map((opp) => (
-                <div key={opp.sector} className="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-5">
+                <div key={opp.sector} className="rounded-3xl border border-border/80 bg-card/80 p-5">
                   <p className="font-semibold text-white">{opp.sector}</p>
-                  <p className="mt-2 text-sm text-slate-400">{opp.description}</p>
+                  <p className="mt-2 text-sm text-muted">{opp.description}</p>
                 </div>
               ))}
             </div>
@@ -93,9 +93,9 @@ export default function CompanyProfilePage() {
           <section className="space-y-6">
             <h2 className="text-2xl font-semibold text-white">Suggested Actions</h2>
             <div className="flex flex-wrap gap-3">
-              <button className="rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-400">Request Intro</button>
-              <button className="rounded-full border border-slate-800 px-6 py-3 text-sm text-slate-200 transition hover:border-sky-400">Save to Watchlist</button>
-              <button className="rounded-full border border-slate-800 px-6 py-3 text-sm text-slate-200 transition hover:border-sky-400">Share Signal</button>
+              <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-primary/90">Request Intro</button>
+              <button className="rounded-full border border-border px-6 py-3 text-sm text-foreground/90 transition hover:border-primary">Save to Watchlist</button>
+              <button className="rounded-full border border-border px-6 py-3 text-sm text-foreground/90 transition hover:border-primary">Share Signal</button>
             </div>
           </section>
 

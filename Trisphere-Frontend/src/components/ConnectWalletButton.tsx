@@ -24,7 +24,7 @@ export default function ConnectWalletButton() {
       connectButton={{
         label: 'Connect Wallet',
         className:
-          '!rounded-full !border !border-slate-800/80 !bg-slate-900/80 !px-4 !py-2 !text-sm !text-slate-200 hover:!border-sky-400 hover:!text-white',
+          '!rounded-full !border !border-border/80 !bg-card/80 !px-4 !py-2 !text-sm !text-foreground/90 hover:!border-primary hover:!text-foreground',
       }}
       connectModal={{
         size: 'wide',

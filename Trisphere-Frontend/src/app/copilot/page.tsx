@@ -33,10 +33,10 @@ export default function CopilotPage() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.08 }}
-        className="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6 text-slate-200 shadow-xl shadow-slate-950/20"
+        className="rounded-3xl border border-border/80 bg-card/80 p-6 text-foreground/90 shadow-xl shadow-black/30"
       >
-        <p className="text-sm uppercase tracking-[0.35em] text-slate-500">{item.role}</p>
-        <p className="mt-4 text-lg leading-8 text-slate-100">{item.message}</p>
+        <p className="text-sm uppercase tracking-[0.35em] text-muted">{item.role}</p>
+        <p className="mt-4 text-lg leading-8 text-foreground">{item.message}</p>
       </motion.div>
     ));
   }, [responses]);
@@ -55,22 +55,22 @@ export default function CopilotPage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
+    <main className="min-h-screen bg-midnight text-foreground">
       <Navbar />
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-10 lg:px-16">
         <header className="mb-10 space-y-4">
-          <p className="text-sm uppercase tracking-[0.35em] text-sky-300/80">AI Copilot</p>
+          <p className="text-sm uppercase tracking-[0.35em] text-primary/80">AI Copilot</p>
           <h1 className="text-4xl font-semibold text-white sm:text-5xl">Ask for the intelligence you need and get focused next steps.</h1>
-          <p className="max-w-3xl text-lg leading-8 text-slate-400">Your daily strategy assistant for trends, champions, matches, and Avalanche verification.</p>
+          <p className="max-w-3xl text-lg leading-8 text-muted">Your daily strategy assistant for trends, champions, matches, and Avalanche verification.</p>
         </header>
 
-        <section className="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20">
+        <section className="rounded-3xl border border-border/80 bg-card/80 p-6 shadow-xl shadow-black/30">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Ask the Copilot</p>
-              <p className="mt-2 text-slate-400">Type a question and receive a curated intelligence summary instantly.</p>
+              <p className="text-sm uppercase tracking-[0.35em] text-muted">Ask the Copilot</p>
+              <p className="mt-2 text-muted">Type a question and receive a curated intelligence summary instantly.</p>
             </div>
-            <div className="rounded-full bg-slate-950/80 px-4 py-2 text-sm text-slate-300">Streaming responses, no wait.</div>
+            <div className="rounded-full bg-midnight/80 px-4 py-2 text-sm text-foreground/80">Streaming responses, no wait.</div>
           </div>
 
           <form
@@ -88,9 +88,9 @@ export default function CopilotPage() {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="What opportunities are emerging in East African logistics?"
-              className="min-w-0 flex-1 rounded-3xl border border-slate-800/80 bg-slate-950/90 px-5 py-4 text-slate-100 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20"
+              className="min-w-0 flex-1 rounded-3xl border border-border/80 bg-midnight/90 px-5 py-4 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
-            <button type="submit" className="rounded-3xl bg-sky-500 px-6 py-4 text-sm font-semibold text-slate-950 transition hover:bg-sky-400">
+            <button type="submit" className="rounded-3xl bg-primary px-6 py-4 text-sm font-semibold text-foreground transition hover:bg-primary/90">
               Analyze
             </button>
           </form>
@@ -103,13 +103,13 @@ export default function CopilotPage() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: item * 0.05 }}
-                  className="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20"
+                  className="rounded-3xl border border-border/80 bg-card/80 p-6 shadow-xl shadow-black/30"
                 >
-                  <div className="h-4 w-32 rounded-full bg-slate-800/80" />
+                  <div className="h-4 w-32 rounded-full bg-card" />
                   <div className="mt-5 space-y-3">
-                    <div className="h-4 w-full rounded-full bg-slate-800/80" />
-                    <div className="h-4 w-5/6 rounded-full bg-slate-800/80" />
-                    <div className="h-4 w-4/6 rounded-full bg-slate-800/80" />
+                    <div className="h-4 w-full rounded-full bg-card" />
+                    <div className="h-4 w-5/6 rounded-full bg-card" />
+                    <div className="h-4 w-4/6 rounded-full bg-card" />
                   </div>
                 </motion.div>
               ))

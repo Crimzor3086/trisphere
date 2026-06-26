@@ -9,17 +9,17 @@ export default function DailyBriefCard() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.02 }}
-      className="rounded-3xl border border-slate-800/80 bg-slate-950/85 p-8 shadow-xl shadow-slate-950/20"
+      className="rounded-3xl border border-border/80 bg-card/90 p-8 shadow-xl shadow-black/30"
     >
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="text-sm uppercase tracking-[0.35em] text-sky-300/80">Daily Intelligence Brief</p>
+          <p className="text-sm uppercase tracking-[0.35em] text-primary/80">Daily Intelligence Brief</p>
           <h3 className="mt-4 text-3xl font-semibold text-white">Start your day with the top signals.</h3>
         </div>
         <motion.span
           animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="rounded-full bg-emerald-500/10 px-4 py-2 text-sm text-emerald-300"
+          className="rounded-full bg-secondary/10 px-4 py-2 text-sm text-secondary"
         >
           3 new trends
         </motion.span>
@@ -36,10 +36,10 @@ export default function DailyBriefCard() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-5 text-slate-300"
+            className="rounded-3xl border border-border/80 bg-card/80 p-5 text-foreground/80"
           >
             <p className="font-semibold text-white">{item.title}</p>
-            <p className="mt-3 text-sm leading-6 text-slate-400">{item.description}</p>
+            <p className="mt-3 text-sm leading-6 text-muted">{item.description}</p>
           </motion.div>
         ))}
       </div>
