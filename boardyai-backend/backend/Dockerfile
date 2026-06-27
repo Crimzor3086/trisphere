@@ -1,7 +1,7 @@
 # --- BUILD STAGE ---
 FROM elixir:1.15-alpine AS builder
 
-RUN apk add --no-cache build-essential git
+RUN apk add --no-cache build-base git
 
 WORKDIR /app
 
