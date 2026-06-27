@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useActiveAccount, useSendTransaction } from 'thirdweb/react';
 import { getContract, prepareContractCall, readContract } from 'thirdweb';
 import { parseUnits, formatUnits } from 'ethers';
-import { client } from '@/integrations/boardy/client';
+import { client } from '@/lib/thirdweb-client';
 import { avalancheFuji } from '@/lib/chains';
 import { getTriSphereContracts } from '@/lib/contracts';
 import { PAYMENT_ESCROW_ABI } from '@/lib/abis/paymentEscrow';

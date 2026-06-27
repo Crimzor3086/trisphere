@@ -2,7 +2,6 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     typedRoutes: true,
-    serverComponentsExternalPackages: ['pino-pretty'],
   },
   async rewrites() {
     const boardy = process.env.BOARDY_API_URL ?? 'http://localhost:4000';

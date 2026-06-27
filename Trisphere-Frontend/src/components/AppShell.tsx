@@ -2,10 +2,19 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
-import ConnectWalletButton from '@/components/ConnectWalletButton';
+
+const ConnectWalletButton = dynamic(() => import('@/components/ConnectWalletButton'), {
+  ssr: false,
+  loading: () => (
+    <span className="rounded-full border border-border/80 bg-card/80 px-4 py-2 text-sm text-muted">
+      Wallet…
+    </span>
+  ),
+});
 
 const navGroups = [
   {

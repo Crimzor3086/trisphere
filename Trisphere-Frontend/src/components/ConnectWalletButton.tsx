@@ -2,7 +2,7 @@
 
 import { ConnectButton } from 'thirdweb/react';
 import { createWallet, inAppWallet } from 'thirdweb/wallets';
-import { client } from '@/integrations/boardy/client';
+import { client } from '@/lib/thirdweb-client';
 import { avalancheFuji } from '@/lib/chains';
 
 const wallets = [

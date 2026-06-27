@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useActiveAccount } from 'thirdweb/react';
 import { readContract } from 'thirdweb';
 import { getContract } from 'thirdweb';
-import { client } from '@/integrations/boardy/client';
+import { client } from '@/lib/thirdweb-client';
 import { avalancheFuji } from '@/lib/chains';
 import { getTriSphereContracts } from '@/lib/contracts';
 import { TRISPHERE_REPUTATION_ABI } from '@/lib/abis/triSphereReputation';
