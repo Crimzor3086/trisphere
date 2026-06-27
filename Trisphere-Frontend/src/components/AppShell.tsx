@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
@@ -108,8 +109,8 @@ function ShellNav({
     <div className="flex h-full flex-col px-4 py-5">
       <div className="flex items-center justify-between gap-3">
         <Link href="/" className="flex min-w-0 items-center gap-3">
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[18px] border border-primary/30 bg-primary/15 font-semibold text-primary shadow-glow">
-            TS
+          <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-[18px] border border-primary/30 bg-primary/15 shadow-glow">
+            <Image src="/logo.png" alt="TriSphere" width={44} height={44} className="h-full w-full object-contain p-1.5" priority />
           </span>
           {!collapsed ? (
             <span className="min-w-0">
