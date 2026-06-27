@@ -6,12 +6,12 @@ import { getTriSphereContracts } from '@/lib/contracts';
 import { snowtraceAddress } from '@/lib/chains';
 
 const journey = [
-  { step: 1, title: 'Detect opportunity', href: '/trends', detail: 'AI surfaces emerging supply-chain trends.' },
-  { step: 2, title: 'Verify on Avalanche', href: '/champions', detail: 'TrendRegistry & KHCRegistry proofs on Fuji.' },
-  { step: 3, title: 'Connect participants', href: '/matches', detail: 'Boardy match staking unlocks collaboration.' },
-  { step: 4, title: 'Settle with USDC', href: '#escrow', detail: 'PaymentEscrow locks funds until delivery.' },
-  { step: 5, title: 'Build reputation', href: '/rewards', detail: 'TriSphereReputation updates after settlement.' },
-];
+  { step: 1, title: 'Detect opportunity', href: '/trends' as const, detail: 'AI surfaces emerging supply-chain trends.' },
+  { step: 2, title: 'Verify on Avalanche', href: '/champions' as const, detail: 'TrendRegistry & KHCRegistry proofs on Fuji.' },
+  { step: 3, title: 'Connect participants', href: '/matches' as const, detail: 'Boardy match staking unlocks collaboration.' },
+  { step: 4, title: 'Settle with USDC', href: '/commerce' as const, detail: 'PaymentEscrow locks funds until delivery.' },
+  { step: 5, title: 'Build reputation', href: '/rewards' as const, detail: 'TriSphereReputation updates after settlement.' },
+] as const;
 
 export default function CommercePage() {
   const c = getTriSphereContracts();

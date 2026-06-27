@@ -47,7 +47,7 @@ export default function RewardsPage() {
           const val = (await readContract({
             contract: rep,
             method: 'metric',
-            params: [account.address, badge.metricKey],
+            params: [account.address, badge.metricKey as `0x${string}`],
           })) as bigint;
           return { ...badge, count: Number(val) };
         }),
