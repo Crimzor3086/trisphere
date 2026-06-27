@@ -9,6 +9,8 @@ defmodule BoardyWeb.Router do
     pipe_through :api
 
     get "/profiles/:id", ProfileController, :show
+    post "/profiles/:id/sync_mock", ProfileController, :sync_mock
+    post "/profiles/:id/sync_real_transcript", ProfileController, :sync_real_transcript
     post "/profiles", ProfileController, :create
     post "/vapi", VapiController, :webhook
     post "/matches/:id/confirm-payment", MatchController, :confirm_payment
