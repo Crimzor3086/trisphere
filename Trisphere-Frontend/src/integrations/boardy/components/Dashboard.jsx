@@ -91,27 +91,29 @@ export default function Dashboard({ profile }) {
         body: JSON.stringify({ matchId }),
       });
 
-      const apiUrl = getBoardyApiUrl();
-      const response = await fetch(`${apiUrl}/matches/1/confirm-payment`, {
+      const unlock = await fetch("/api/boardy/chain/unlock-match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: profile.id }),
+        body: JSON.stringify({ matchId, userId: profile.id, profileId: profile.id }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.chat_room_id) {
-          setMatchStatus("matched");
-          setTimeout(() => {
-            if (window.onMatchUnlocked) {
-              window.onMatchUnlocked(data.chat_room_id);
-            }
-          }, 1500);
-          return;
-        }
+      if (!unlock.ok) {
+        const err = await unlock.json().catch(() => ({}));
+        throw new Error(err.error || "Failed to provision chat after on-chain unlock");
       }
 
-      alert("On-chain stake succeeded but backend match provisioning failed.");
+      const data = await unlock.json();
+      if (data.chatRoomId) {
+        setMatchStatus("matched");
+        setTimeout(() => {
+          if (window.onMatchUnlocked) {
+            window.onMatchUnlocked(data.chatRoomId);
+          }
+        }, 1500);
+        return;
+      }
+
+      alert("On-chain stake succeeded but chat room provisioning failed.");
       setMatchStatus("idle");
     } catch (err) {
       console.error("Stake flow error:", err);

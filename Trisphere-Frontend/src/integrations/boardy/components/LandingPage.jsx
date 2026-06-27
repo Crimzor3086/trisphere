@@ -1,26 +1,15 @@
 export default function LandingPage({ onJoinClick, onWhitepaperClick }) {
   return (
     <div style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Navbar */}
-      <nav className="nav-bar">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div className="brand-logo">B</div>
-          <span className="brand-text">Boardy.ai</span>
-        </div>
-        <div>
-          <button onClick={onJoinClick} className="btn-primary nav-btn">Enter App</button>
-        </div>
-      </nav>
-
       {/* Hero Section */}
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '0 2rem' }}>
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '2rem' }}>
         <div className="animate-in" style={{ maxWidth: '800px' }}>
-          <div style={{ display: 'inline-block', background: 'rgba(232, 65, 66, 0.1)', border: '1px solid rgba(232, 65, 66, 0.3)', color: 'var(--primary)', padding: '0.5rem 1.2rem', borderRadius: '30px', fontWeight: '600', marginBottom: '2rem', letterSpacing: '0.05em', textTransform: 'uppercase', fontSize: '0.85rem' }}>
-            The Verified Professional Synergy Protocol
+          <div style={{ display: 'inline-block', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.3)', color: 'var(--primary)', padding: '0.5rem 1.2rem', borderRadius: '30px', fontWeight: '600', marginBottom: '2rem', letterSpacing: '0.05em', textTransform: 'uppercase', fontSize: '0.85rem' }}>
+            ConnectSphere matchmaking protocol
           </div>
           
           <h1 className="hero-title">
-            Don't just network.<br/> <span style={{ background: 'linear-gradient(135deg, var(--primary) 0%, #ff5e78 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Synthesize.</span>
+            Don't just network.<br/> <span style={{ background: 'linear-gradient(135deg, var(--primary) 0%, #06b6d4 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Find the right match.</span>
           </h1>
           
           <p className="hero-subtitle">
@@ -45,7 +34,7 @@ export default function LandingPage({ onJoinClick, onWhitepaperClick }) {
             { title: "Web3 Escrow", desc: "Filter out the noise. Avalanche smart contracts hold commitment stakes to ensure serious intent." }
           ].map((feat, i) => (
             <div key={i} style={{ background: 'rgba(20, 20, 30, 0.4)', padding: '2rem', borderRadius: '20px', border: '1px solid var(--border)', textAlign: 'left', transition: 'transform 0.3s' }} onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-              <div style={{ width: '40px', height: '40px', background: 'rgba(232, 65, 66, 0.1)', color: 'var(--primary)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', marginBottom: '1rem' }}>
+              <div style={{ width: '40px', height: '40px', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', marginBottom: '1rem' }}>
                 ✦
               </div>
               <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: 'var(--text-main)' }}>{feat.title}</h3>

@@ -27,14 +27,14 @@ export default function PersonaSelector() {
           whileTap={{ scale: 0.98 }}
           className={`rounded-3xl border p-4 text-left text-sm transition-all duration-300 ${
             selected === persona.label
-              ? 'border-sky-400 bg-sky-500/10'
-              : 'border-slate-800/80 bg-slate-950/80 hover:border-sky-400 hover:bg-slate-900/90'
+              ? 'border-primary bg-primary/10'
+              : 'border-border/80 bg-midnight/80 hover:border-primary hover:bg-surface/90'
           }`}
         >
-          <p className={`font-semibold ${selected === persona.label ? 'text-sky-300' : 'text-white'}`}>
+          <p className={`font-semibold ${selected === persona.label ? 'text-primary' : 'text-white'}`}>
             {persona.label}
           </p>
-          <p className="mt-1 text-xs text-slate-500">{persona.description}</p>
+          <p className="mt-1 text-xs text-muted">{persona.description}</p>
         </motion.button>
       ))}
     </div>

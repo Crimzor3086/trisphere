@@ -62,23 +62,23 @@ export default function LiveFeedCard({ item }: { item: LiveFeedItem }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.02 }}
-      className="relative overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-950/85 p-6 shadow-xl shadow-slate-950/20 backdrop-blur-xl"
+      className="relative overflow-hidden rounded-3xl border border-border/80 bg-card/90 p-6 shadow-xl shadow-black/30 backdrop-blur-xl"
     >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 0.2, 0] }}
         transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-        className="absolute inset-0 bg-gradient-to-r from-sky-500/0 via-sky-500/20 to-sky-500/0"
+        className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0"
       />
       <div className="relative flex items-center justify-between gap-4">
-        <p className="text-xs uppercase tracking-[0.35em] text-sky-300/80">{item.type}</p>
-        <div className="flex items-center gap-1.5 rounded-full bg-slate-900/80 px-3 py-1 text-xs text-slate-400">
-          <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+        <p className="text-xs uppercase tracking-[0.35em] text-primary/80">{item.type}</p>
+        <div className="flex items-center gap-1.5 rounded-full bg-card/80 px-3 py-1 text-xs text-muted">
+          <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-secondary" />
           Live
         </div>
       </div>
       <h3 className="relative mt-6 text-xl font-semibold text-white">{item.title}</h3>
-      <div className="relative mt-5 space-y-3 text-slate-300">
+      <div className="relative mt-5 space-y-3 text-foreground/80">
         {item.velocity ? (
           <p>
             Velocity: <span className="font-semibold text-white">{displayVelocity}</span>

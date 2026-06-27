@@ -291,7 +291,7 @@
         item.className = "hook-item-card";
         item.innerHTML = `
           <div style="display:flex; align-items:center; gap:12px">
-            <span style="width:22px; height:22px; border-radius:50%; background:rgba(232, 65, 66, 0.1); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700">${index+1}</span>
+            <span style="width:22px; height:22px; border-radius:50%; background:rgba(59, 130, 246, 0.1); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700">${index+1}</span>
             <span class="hook-text">${hook}</span>
           </div>
           <button class="btn btn-secondary" style="padding:6px 12px; font-size:0.75rem" onclick="copyHook(this, '${hook.replace(/'/g, "\\'")}')">

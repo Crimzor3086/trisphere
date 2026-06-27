@@ -1,0 +1,86 @@
+export const PAYMENT_ESCROW_ABI = [
+  {
+    type: 'function',
+    name: 'createEscrow',
+    inputs: [
+      { name: 'payee', type: 'address' },
+      { name: 'token', type: 'address' },
+      { name: 'amount', type: 'uint256' },
+      { name: 'description', type: 'string' },
+    ],
+    outputs: [{ name: 'id', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'fundEscrow',
+    inputs: [{ name: 'id', type: 'uint256' }],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'approveMilestone',
+    inputs: [{ name: 'id', type: 'uint256' }],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'releaseFunds',
+    inputs: [{ name: 'id', type: 'uint256' }],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'refund',
+    inputs: [{ name: 'id', type: 'uint256' }],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'cancel',
+    inputs: [{ name: 'id', type: 'uint256' }],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'escrows',
+    inputs: [{ name: 'id', type: 'uint256' }],
+    outputs: [
+      { name: 'payer', type: 'address' },
+      { name: 'payee', type: 'address' },
+      { name: 'token', type: 'address' },
+      { name: 'amount', type: 'uint256' },
+      { name: 'description', type: 'string' },
+      { name: 'status', type: 'uint8' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'nextId',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'platformFeeBps',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+] as const;
+
+export const EscrowStatus = {
+  Created: 0,
+  Funded: 1,
+  MilestoneApproved: 2,
+  Released: 3,
+  Refunded: 4,
+  Cancelled: 5,
+} as const;

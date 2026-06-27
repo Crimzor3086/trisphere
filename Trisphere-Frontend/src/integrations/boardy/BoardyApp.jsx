@@ -85,13 +85,6 @@ export default function App() {
 
   return (
     <div className={`app-container ${(!activeAccount && !showLogin) ? 'no-padding' : ''}`}>
-      { (activeAccount || showLogin) && (
-        <header className="brand-header">
-          <div className="brand-logo">B</div>
-          <span className="brand-text">Boardy.ai</span>
-        </header>
-      )}
-
       {renderScreen()}
     </div>
   );

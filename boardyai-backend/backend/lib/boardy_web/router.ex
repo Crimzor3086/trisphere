@@ -12,5 +12,7 @@ defmodule BoardyWeb.Router do
     post "/profiles", ProfileController, :create
     post "/vapi", VapiController, :webhook
     post "/matches/:id/confirm-payment", MatchController, :confirm_payment
+    get "/chat_rooms/:id/messages", ChatController, :list_messages
+    post "/chat_rooms/:id/messages", ChatController, :create_message
   end
 end

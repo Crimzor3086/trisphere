@@ -49,12 +49,22 @@ upsertEnv(path.join(ROOT, 'trendhuntjack-backend-/.env'), {
   REGISTRY_PRIVATE_KEY: process.env.PRIVATE_KEY || '',
 });
 
+upsertEnv(path.join(ROOT, 'boardyai-backend/backend/.env'), {
+  BOARDY_MATCH_STAKING_ADDRESS: contracts.boardyMatchStaking,
+  BOARDY_MILESTONE_ESCROW_ADDRESS: contracts.boardyMilestoneEscrow,
+  AVALANCHE_RPC_URL: process.env.RPC_URL || 'https://api.avax-test.network/ext/bc/C/rpc',
+});
+
 upsertEnv(path.join(ROOT, 'Trisphere-Frontend/.env.local'), {
   NEXT_PUBLIC_TREND_REGISTRY_ADDRESS: contracts.trendRegistry,
   NEXT_PUBLIC_KHC_REGISTRY_ADDRESS: contracts.khcRegistry,
   NEXT_PUBLIC_BOARDY_MATCH_STAKING_ADDRESS: contracts.boardyMatchStaking,
   NEXT_PUBLIC_BOARDY_MILESTONE_ESCROW_ADDRESS: contracts.boardyMilestoneEscrow,
   NEXT_PUBLIC_BOARDY_STAKE_AMOUNT_AVAX: contracts.boardyStakeAmountAvax,
+  NEXT_PUBLIC_PAYMENT_ESCROW_ADDRESS: contracts.paymentEscrow,
+  NEXT_PUBLIC_TRISPHERE_TREASURY_ADDRESS: contracts.treasury,
+  NEXT_PUBLIC_TRISPHERE_REPUTATION_ADDRESS: contracts.reputation,
+  NEXT_PUBLIC_MOCK_USDC_ADDRESS: contracts.mockUsdc,
   NEXT_PUBLIC_AVALANCHE_CHAIN_ID: '43113',
   AVALANCHE_RPC_URL: process.env.RPC_URL || 'https://api.avax-test.network/ext/bc/C/rpc',
   BOARDY_OWNER_PRIVATE_KEY: process.env.PRIVATE_KEY || '',

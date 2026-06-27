@@ -25,11 +25,11 @@ export default function Login({ onBack }) {
 
       <div className="glass-card animate-in" style={{ textAlign: 'center' }}>
         <div style={{ marginBottom: '2.5rem' }}>
-          <div style={{ width: '72px', height: '72px', background: 'linear-gradient(135deg, var(--primary), #ff5e78)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', boxShadow: '0 8px 30px var(--primary-glow)' }}>
-            <span style={{ fontSize: '2.5rem', color: 'white', fontWeight: 'bold' }}>B</span>
+          <div style={{ width: '72px', height: '72px', background: 'linear-gradient(135deg, var(--primary), #06b6d4)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', boxShadow: '0 8px 30px var(--primary-glow)' }}>
+            <span style={{ fontSize: '2.5rem', color: 'white', fontWeight: 'bold' }}>CS</span>
           </div>
-          <h1 className="title">Boardy.ai</h1>
-          <p className="subtitle">Connect Core Wallet or MetaMask on Avalanche Fuji to enter the Verified Professional Synergy Protocol.</p>
+          <h1 className="title">ConnectSphere</h1>
+          <p className="subtitle">Connect Core Wallet or MetaMask on Avalanche Fuji to enter the AI matchmaking workspace.</p>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -39,7 +39,7 @@ export default function Login({ onBack }) {
             chains={[avalancheFuji]}
             wallets={wallets}
             theme="dark"
-            connectModal={{ size: "wide", title: "Join Boardy.ai on Fuji" }}
+            connectModal={{ size: "wide", title: "Join ConnectSphere on Fuji" }}
           />
         </div>
       </div>

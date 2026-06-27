@@ -31,21 +31,21 @@ export default function ChampionCard({ champion }: { champion: Champion }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.02, y: -4 }}
-      className="rounded-3xl border border-slate-800/80 bg-slate-950/85 p-6 shadow-xl shadow-slate-950/20 backdrop-blur-xl transition-all duration-300"
+      className="rounded-3xl border border-border/80 bg-card/90 p-6 shadow-xl shadow-black/30 backdrop-blur-xl transition-all duration-300"
     >
-      <div className="flex items-center justify-between gap-3 text-sm text-slate-400">
-        <span className="inline-flex rounded-full bg-slate-900/70 px-3 py-1">{champion.industry}</span>
-        <span className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3 py-1 text-blue-300">
+      <div className="flex items-center justify-between gap-3 text-sm text-muted">
+        <span className="inline-flex rounded-full bg-surface/70 px-3 py-1">{champion.industry}</span>
+        <span className="inline-flex items-center gap-2 rounded-full bg-secondary/10 px-3 py-1 text-secondary">
           Champion {displayScore}
         </span>
       </div>
       <h3 className="mt-6 text-2xl font-semibold text-white">{champion.name}</h3>
-      <p className="mt-4 text-slate-300">{champion.description}</p>
-      <div className="mt-6 flex items-center justify-between text-sm text-slate-400">
+      <p className="mt-4 text-foreground/80">{champion.description}</p>
+      <div className="mt-6 flex items-center justify-between text-sm text-muted">
         <span>{champion.location}</span>
         <Link
           href="/champions/eldoret-manufacturing"
-          className="rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400"
+          className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-primary/90"
         >
           View profile
         </Link>

@@ -53,9 +53,14 @@ async function main() {
   run('Boardy compile', path.join(ROOT, 'boardyai-backend/contracts'), 'npm', ['run', 'compile']);
   run('Boardy deploy', path.join(ROOT, 'boardyai-backend/contracts'), 'npm', ['run', 'deploy:fuji']);
 
+  run('Commerce compile', path.join(ROOT, 'contracts/commerce'), 'npm', ['run', 'compile']);
+  run('Commerce deploy', path.join(ROOT, 'contracts/commerce'), 'npm', ['run', 'deploy:fuji']);
+
   const trend = readJson(path.join(ROOT, 'trendhuntjack-backend-/deployments/fuji-TrendRegistry.json'));
   const khc = readJson(path.join(ROOT, 'kenyahidden-Backend/deployments/fuji.json'));
   const boardy = readJson(path.join(ROOT, 'boardyai-backend/contracts/deployments/fuji.json'));
+  const commercePath = path.join(ROOT, 'deployments/trisphere-commerce-fuji.json');
+  const commerce = fs.existsSync(commercePath) ? readJson(commercePath) : { contracts: {} };
 
   const manifest = {
     network: 'fuji',
@@ -70,6 +75,11 @@ async function main() {
       boardyMatchStaking: boardy.contracts.BoardyMatchStaking.address,
       boardyMilestoneEscrow: boardy.contracts.BoardyMilestoneEscrow.address,
       boardyStakeAmountAvax: boardy.contracts.BoardyMatchStaking.stakeAmountAvax,
+      paymentEscrow: commerce.contracts?.paymentEscrow ?? '',
+      treasury: commerce.contracts?.treasury ?? '',
+      reputation: commerce.contracts?.reputation ?? '',
+      mockUsdc: commerce.contracts?.mockUsdc ?? '',
+      platformFeeBps: commerce.contracts?.platformFeeBps ?? 250,
     },
   };
 

@@ -1,8 +1,7 @@
 'use client';
 
-import Navbar from '@/components/Navbar';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import ActionButton from '@/components/ActionButton';
 
 const insights = [
   {
@@ -30,13 +29,12 @@ const insights = [
 
 export default function InsightsPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
-      <Navbar />
+    <main className="min-h-screen bg-midnight text-foreground">
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-10 lg:px-16">
         <header className="mb-10 space-y-4">
-          <p className="text-sm uppercase tracking-[0.35em] text-sky-300/80">Insights</p>
+          <p className="text-sm uppercase tracking-[0.35em] text-primary/80">Insights</p>
           <h1 className="text-4xl font-semibold text-white sm:text-5xl">Your strategic intelligence hub.</h1>
-          <p className="max-w-3xl text-lg leading-8 text-slate-400">A contextual feed of verified signals, sector trends, and curated analysis to help you stay ahead.</p>
+          <p className="max-w-3xl text-lg leading-8 text-muted">A contextual feed of verified signals, sector trends, and curated analysis to help you stay ahead.</p>
         </header>
 
         <div className="space-y-6">
@@ -62,26 +60,26 @@ function InsightCard({ insight, index }: { insight: typeof insights[0]; index: n
       animate="visible"
       transition={{ delay: index * 0.1, duration: 0.5 }}
       whileHover={{ scale: 1.01, x: 4 }}
-      className="rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6 shadow-xl shadow-slate-950/20 backdrop-blur-xl transition-all duration-300"
+      className="rounded-3xl border border-border/80 bg-card/80 p-6 shadow-xl shadow-black/30 backdrop-blur-xl transition-all duration-300"
     >
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <span className="inline-flex rounded-full bg-slate-900/70 px-3 py-1 text-sm text-slate-300">{insight.sector}</span>
+          <span className="inline-flex rounded-full bg-surface/70 px-3 py-1 text-sm text-foreground/80">{insight.sector}</span>
           <span className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${
-            insight.signal === 'high' ? 'bg-emerald-500/10 text-emerald-300' :
-            insight.signal === 'rising' ? 'bg-sky-500/10 text-sky-300' :
-            'bg-amber-500/10 text-amber-300'
+            insight.signal === 'high' ? 'bg-secondary/10 text-secondary' :
+            insight.signal === 'rising' ? 'bg-primary/10 text-primary' :
+            'bg-highlight/10 text-highlight'
           }`}>
             {insight.signal}
           </span>
         </div>
-        <span className="text-sm text-slate-500">{insight.time}</span>
+        <span className="text-sm text-muted">{insight.time}</span>
       </div>
       <h2 className="mt-4 text-2xl font-semibold text-white">{insight.title}</h2>
-      <p className="mt-3 text-slate-300">{insight.excerpt}</p>
+      <p className="mt-3 text-foreground/80">{insight.excerpt}</p>
       <div className="mt-5 flex flex-wrap gap-3">
-        <button className="rounded-full border border-slate-800/80 px-4 py-2 text-sm text-slate-200 transition hover:border-sky-400">Save</button>
-        <button className="rounded-full border border-slate-800/80 px-4 py-2 text-sm text-slate-200 transition hover:border-sky-400">Share</button>
+        <ActionButton action="Save" doneLabel="Saved" />
+        <ActionButton action="Share" doneLabel="Shared" />
       </div>
     </motion.article>
   );

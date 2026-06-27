@@ -10,6 +10,12 @@
     "khcRegistry": "0x59b922Daf1F5de301c75e3af03c5f2e958Ea38Dd",
     "boardyMatchStaking": "0xA9d63536cd7e9B12F501BDb2F51C0822afbe0215",
     "boardyMilestoneEscrow": "0xc6d301478BfcCC5a1252862fC73B54397A0D2F13",
-    "boardyStakeAmountAvax": "0.01"
-  }
+    "boardyStakeAmountAvax": "0.01",
+    "paymentEscrow": "0xB3bBD8fB861B766F8cf991Ce14389d57AB14EBE0",
+    "treasury": "0xBD8Cd8bC875A35d55346A1b00D3314BA5C2CffC2",
+    "reputation": "0x50b95e0aE0843c0cabD4e2833618a566658f673b",
+    "mockUsdc": "0xF1D01bd248dF849aF838CB3f8579E0F44B90dEc8",
+    "platformFeeBps": 250
+  },
+  "commerceDeployedAt": "2026-06-26T23:56:18.530Z"
 }

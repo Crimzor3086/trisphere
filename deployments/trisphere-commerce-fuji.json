@@ -1,0 +1,13 @@
+{
+  "network": "fuji",
+  "chainId": 43113,
+  "deployedAt": "2026-06-26T23:56:18.530Z",
+  "deployer": "0x238A0E863Aa6e495921b9c7777a4047CB8A913c1",
+  "contracts": {
+    "paymentEscrow": "0xB3bBD8fB861B766F8cf991Ce14389d57AB14EBE0",
+    "treasury": "0xBD8Cd8bC875A35d55346A1b00D3314BA5C2CffC2",
+    "reputation": "0x50b95e0aE0843c0cabD4e2833618a566658f673b",
+    "mockUsdc": "0xF1D01bd248dF849aF838CB3f8579E0F44B90dEc8",
+    "platformFeeBps": 250
+  }
+}
