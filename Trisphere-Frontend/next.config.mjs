@@ -3,6 +3,7 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
+  serverExternalPackages: ['pino-pretty'],
   async rewrites() {
     const boardy = process.env.BOARDY_API_URL ?? 'http://localhost:4000';
     const khc = process.env.KHC_API_URL ?? 'http://localhost:5000/api';
