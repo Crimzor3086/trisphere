@@ -7,18 +7,24 @@ TriSphere combines three previously separate intelligence systems into one unifi
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  Trisphere-Frontend  (port 3000)  — unified shell + nav   │
-│  /trends          → Trend Hunter UI  →  FastAPI :8000       │
-│  /champions/*     → KHC-DE UI        →  Express :5000       │
-│  /matches         → Boardy.ai UI     →  Phoenix  :4000      │
+│  /trends          → TrendSphere UI     →  Trend API (FastAPI) :8000      │
+│  /champions/*     → ChampionSphere UI  →  Champion API (Express) :5000   │
+│  /matches         → ConnectSphere UI   →  Connect API (Phoenix) :4000    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-| System | Frontend route | Backend | Port |
-|--------|----------------|---------|------|
-| **TriSphere** (main) | `Trisphere-Frontend/` | — | **3000** |
-| **Trend Hunter** | `/trends` | `trendhuntjack-backend-/backend/` | **8000** |
-| **Kenya Hidden Champions** | `/champions/*` | `kenyahidden-Backend/backend/` | **5000** |
-| **Boardy.ai** | `/matches` | `boardyai-backend/backend/` | **4000** |
+| API | Stack | Role | License | Frontend route | Port |
+|-----|-------|------|---------|----------------|------|
+| **Trend API** | FastAPI | Trend intelligence backend | Open Source | `/trends` | **8000** |
+| **Champion API** | Express.js | Hidden Champion engine | Open Source | `/champions/*` | **5000** |
+| **Connect API** | Phoenix (Elixir) | Matchmaking backend | Open Source | `/matches` | **4000** |
+
+| System | Frontend route | Backend folder | Port |
+|--------|----------------|----------------|------|
+| **TriSphere** (unified shell) | `Trisphere-Frontend/` | — | **3000** |
+| **TrendSphere** | `/trends` | `trendhuntjack-backend-/backend/` | **8000** |
+| **ChampionSphere** | `/champions/*` | `kenyahidden-Backend/backend/` | **5000** |
+| **ConnectSphere** | `/matches` | `boardyai-backend/backend/` | **4000** |
 
 Legacy standalone frontends under each subsystem folder are **not** required for local dev — use `Trisphere-Frontend` only.
 
@@ -34,7 +40,7 @@ Legacy standalone frontends under each subsystem folder are **not** required for
 
 ### 1. Start backends (each in its own terminal)
 
-**Boardy.ai** (Phoenix + Postgres):
+**Connect API** (Phoenix + Postgres):
 
 ```bash
 cd boardyai-backend
@@ -42,14 +48,14 @@ docker compose up db -d
 cd backend && mix phx.server   # http://localhost:4000
 ```
 
-**Kenya Hidden Champions** (Express):
+**Champion API** (Express):
 
 ```bash
 cd kenyahidden-Backend
 npm run backend                # http://localhost:5000
 ```
 
-**Trend Hunter** (FastAPI + optional Redis):
+**Trend API** (FastAPI + optional Redis):
 
 ```bash
 cd trendhuntjack-backend-
@@ -68,9 +74,9 @@ npm run dev                    # http://localhost:3000
 
 API calls from the browser are proxied through Next.js:
 
-- `/api/boardy/*` → Boardy backend
-- `/api/khc/*` → KHC backend
-- `/api/trend/*` → Trend Hunter backend
+- `/api/boardy/*` → Connect API (Phoenix)
+- `/api/khc/*` → Champion API (Express)
+- `/api/trend/*` → Trend API (FastAPI)
 
 ## Repository layout
 

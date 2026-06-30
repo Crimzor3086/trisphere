@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
+import { BACKEND_APIS } from '@/lib/config';
 import ActionButton from '@/components/ActionButton';
 import Counter from '@/components/Counter';
 
@@ -54,16 +55,23 @@ export default function Home() {
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
-              {[
-                ['TrendSphere', 'Emerging trends', 'border-primary/40 bg-primary/10 text-primary'],
-                ['ChampionSphere', 'Hidden champions', 'border-secondary/40 bg-secondary/10 text-secondary'],
-                ['ConnectSphere', 'AI matchmaking', 'border-accent/40 bg-accent/10 text-accent'],
-              ].map(([name, label, classes]) => (
-                <div key={name} className={`rounded-[20px] border p-4 ${classes}`}>
-                  <p className="text-sm font-semibold text-white">{name}</p>
-                  <p className="mt-1 text-sm opacity-90">{label}</p>
-                </div>
-              ))}
+              {BACKEND_APIS.map((api) => {
+                const classes =
+                  api.id === 'trend'
+                    ? 'border-primary/40 bg-primary/10 text-primary'
+                    : api.id === 'champion'
+                      ? 'border-secondary/40 bg-secondary/10 text-secondary'
+                      : 'border-accent/40 bg-accent/10 text-accent';
+                return (
+                  <div key={api.id} className={`rounded-[20px] border p-4 ${classes}`}>
+                    <p className="text-sm font-semibold text-white">{api.uiLabel}</p>
+                    <p className="mt-1 text-sm opacity-90">{api.description}</p>
+                    <p className="mt-2 text-xs opacity-75">
+                      {api.name} · {api.stack} · {api.license}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </motion.section>

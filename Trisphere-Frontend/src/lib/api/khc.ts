@@ -27,8 +27,8 @@ export class KhcBackendError extends Error {
   }
 }
 
-export function khcBackendHint() {
-  return `Start the KHC backend: cd kenyahidden-Backend && npm run backend (port ${BACKEND_PORTS.khc})`;
+function khcBackendHint() {
+  return `Start the Champion API (Express.js): cd kenyahidden-Backend && npm run backend (port ${BACKEND_PORTS.khc})`;
 }
 
 async function getJson<T>(path: string): Promise<T> {
@@ -42,7 +42,7 @@ async function getJson<T>(path: string): Promise<T> {
       cache: 'no-store',
     });
   } catch {
-    throw new KhcBackendError(`Cannot reach KHC backend at ${getKhcApiBase()}. ${khcBackendHint()}`);
+    throw new KhcBackendError(`Cannot reach Champion API at ${getKhcApiBase()}. ${khcBackendHint()}`);
   }
 
   if (!res.ok) {
